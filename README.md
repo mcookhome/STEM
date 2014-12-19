@@ -1,4 +1,4 @@
 STEM
 ====
-Sadman, Terrance, Eric, Matthew
+Sadman, Terrance, Eric, Matthew <br>
 Final Project
