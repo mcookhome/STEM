@@ -20,7 +20,7 @@ Reach features:
 * Choose what APIs you want
 * Webcam/microphone chatting
 
-Goals:
+Goals:<br><br>
 1. Get a better name. <br>
 2. Create an attractive base file.<br>
 3. Work on logging<br>
