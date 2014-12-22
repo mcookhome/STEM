@@ -21,9 +21,9 @@ Reach features:
 * Webcam/microphone chatting
 
 Goals:
-1. Get a better name.
-2. Create an attractive base file.
-3. Work on logging
-4.  decide how it will function (drag&drop?, tabs?, different webpages?)
+1. Get a better name. <br>
+2. Create an attractive base file.<br>
+3. Work on logging<br>
+4.  decide how it will function (drag&drop?, tabs?, different webpages?)<br>
 5.  make minesweeper widget
 
