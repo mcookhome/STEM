@@ -1,6 +1,6 @@
 STEM
 ====
-Sadman, Terrance, Eric, Matthew <br>
+Sadman Fahmid, Terrance Liang, Eric Liao, Matthew Cook<br>
 Final Project
 
 Mission statement:
@@ -17,7 +17,7 @@ Features:
 
 Reach features:
 * Use Github API
-* Choose what APIs you want
+* Option to choose what APIs you want
 * Webcam/microphone chatting
 * group procrastination/breaks 
 
@@ -25,6 +25,7 @@ Goals:<br><br>
 1. Get a better name. <br>
 2. Create an attractive base file.<br>
 3. Work on logging<br>
-4.  decide how it will function (drag&drop?, tabs?, different webpages?)<br>
+4. decide how it will function (drag&drop?, tabs?, different webpages?)<br>
+5. Finish it <br>
 
 
