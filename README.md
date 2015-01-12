@@ -4,6 +4,7 @@ Sadman Fahmid, Terrance Liang, Eric Liao, Matthew Cook<br>
 Final Project
 
 Mission statement:
+Following our project name (dllb - developers; leaders; learners; buffoons)
 We want to create an efficient, simple, adaptable group management web application which allows easy contact between group members and streamlines workflow.
 
 Features:
