@@ -26,13 +26,19 @@
   <body bgcolor="#34495E">
     <div class="header">
       <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="">STEM</a>
+        <a class="pure-menu-heading" href="/">STEM</a>
 	
         <ul>
           <li class="pure-menu-selected"><a href="/">Home</a></li>
+	  {% if loggedin %}
+	  <li><a href="/profile">{{username}}</a></li>
+	  <li><a href="/logout">Logout</a></li>
+	  
+	  {% else %}
           <li><a href="/login">Login</a></li>
           <li><a href="/register">Register</a></li>
-        </ul>
+	  {% endif %}
+	</ul>
       </div>
     </div>
     <font color="white" face="arial" size="3">

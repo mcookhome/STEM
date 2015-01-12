@@ -4,7 +4,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/",methods=['GET', 'POST'])
 def home():
    if 'username' in session:
       loggedin=True
