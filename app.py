@@ -61,7 +61,18 @@ def login():
       print session
       return render_template("login.html", loggedin=False)
    #login
-     
+
+@app.route("/<",methods=['GET', 'POST'])
+def home():
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+   else:
+      loggedin=False
+      username = '-'
+   print loggedin
+   return render_template("base.html", loggedin=loggedin, username=username)
+
 @app.route("/logout")
 def logout():
    if 'username' in session:
