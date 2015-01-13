@@ -28,24 +28,6 @@
     </style>
   </head>
   <body bgcolor="#34495E">
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '760770467350543',
-      xfbml      : true,
-      version    : 'v2.2'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
     <div class="header">
       <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="/">STEM</a>
@@ -78,14 +60,6 @@
       {% endblock %}
 
     </font>
-<center>
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-</div>
-</center>
   </body>
 
   
