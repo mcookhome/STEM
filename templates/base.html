@@ -48,6 +48,15 @@
     <font color="white" face="arial" size="3">
       <br><br><br><br><br><br>
       {% block text%}
+      
+      {% if loggedin == True %}
+      You are logged in as {{username}}
+      {% endif %}
+     
+      {% if loggedin == False %}
+      <h1> Welcome to dllb! </h1>
+      {% endif %}
+
       {% endblock %}
 
     </font>

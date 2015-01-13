@@ -1,7 +1,22 @@
 {% extends "base.html" %}
 
 {% block text %}
+ 
+{% if loggedin == True %}
+<br><br>
+<a class="pure-button" href="/logout" type = "submit"> Logout </a>     
+<br><br>
+<b><u>First Name:</u></b> &nbsp {{first}} <br>
+<b><u>Last Name:</u></b> &nbsp{{last}} <br>
+<b><u>Email Address:</u></b> &nbsp{{email}} <br>
+<b><u>Phone Number:</u></b> &nbsp{{phone}} <br>
+<b><u>Facebook Username:</u></b> 
+{% if facebook!="" %} &nbsp{{facebook}} {% endif %}
+{% if facebook=="" %} &nbsp No Username Saved {% endif %} <br>      
+{% endif %}
 
-
+{% if loggedin == False %}
+<h3> Login to your account to access your profile! </h3>
+{% endif %}
 
 {% endblock %}

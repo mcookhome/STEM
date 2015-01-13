@@ -12,8 +12,35 @@ def home():
    else:
       loggedin=False
       username = '-'
-   print loggedin
    return render_template("base.html", loggedin=loggedin, username=username)
+
+@app.route("/profile",methods=['GET','POST'])
+def profile():
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+            
+      conn = sqlite3.connect("stem.db")
+      c = conn.cursor()
+
+      c.execute("select * from uinfo")
+
+      tabledata = c.fetchall()
+      for d in tabledata:
+         if username == d[0]:
+            first = d[2]
+            last = d[3]
+            email = d[4]
+            phone = d[5]
+            facebook = d[6]
+
+      conn.close()
+      return render_template("profile.html", loggedin=loggedin, username=username, first=first, last=last, email=email, phone=phone, facebook=facebook)
+   else:
+      loggedin=False
+      username = '-'
+      return render_template("profile.html", loggedin=loggedin, username=username)
+
 
 @app.route("/login",methods=['GET','POST'])
 def login():
@@ -55,23 +82,12 @@ def login():
  
       if loggedin:
          session['username']=username
-
+      
       return render_template("login.html", loggedin=loggedin, username=username, reason=reason)
    else:
       print session
       return render_template("login.html", loggedin=False)
    #login
-
-@app.route("/<",methods=['GET', 'POST'])
-def home():
-   if 'username' in session:
-      loggedin=True
-      username=session['username']
-   else:
-      loggedin=False
-      username = '-'
-   print loggedin
-   return render_template("base.html", loggedin=loggedin, username=username)
 
 @app.route("/logout")
 def logout():
@@ -95,10 +111,19 @@ def register():
 
    if request.method=='POST':
       if 'username' not in session:
-      
          username = request.form['username']
          password = request.form['password']
          reppassword = request.form['password2']
+         first = request.form['first']
+         last = request.form['last']
+         email = request.form['email']
+         repemail = request.form['email2']
+         phone = request.form['phone']
+
+         if 'facebook' in request.form:
+            facebook = request.form['facebook']
+         else:
+            facebook = ""
          
          reason = ""
          registered=False
@@ -109,6 +134,11 @@ def register():
             registered=False
             reason = "Passwords do not match"
             print "Passwords do not match"
+
+         if email != repemail:
+            registered=False
+            reason = "Emails do not match"
+            print "Emails do not match"
 
       conn = sqlite3.connect("stem.db")
       c = conn.cursor()
@@ -123,7 +153,7 @@ def register():
 
       if registered:
          doc = [username,password]
-         insinfo="insert into uinfo values('"+username+"','"+password+"')"
+         insinfo="insert into uinfo values ('"+username+"','"+password+"','"+first+"','"+last+"','"+email+"','"+phone+"','"+facebook+"')"
          c.execute(insinfo)
          conn.commit()
          print 'Username and Password have been recorded as variables'
