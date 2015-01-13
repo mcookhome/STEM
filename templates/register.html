@@ -6,8 +6,10 @@
 	<br><br>
 	<a class="pure-button" href="/logout" type = "submit"> Logout </a>
 	{% endif %}
-	
+
 	{% if page==2 or page==3 and loggedin==False %}
+	<center>
+	<div class="turq">
 	  <h2>Register</h2>
 	  <form action="register" method="post">
 	    Username:  <input required type="text" name="username"></input>
@@ -29,9 +31,10 @@
 	      <button class="button-small pure-button" type="submit">Register</button>
 	    </div>
 	  </form>
-	<hr>
+
       </div>
     </div>
+</center>
     {% endif %}
 
     {% if page==1 %}

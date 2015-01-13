@@ -10,8 +10,8 @@
 	{% endif %}
 	
 	{% if loggedin == False %}
-
-	<font color="black">
+	<center>
+	<font class="turq">
 	  <h2>Login</h2>
 	  <form action="login" method="post">
 	    Username:  <input required type="text" name="username"></input>
@@ -33,8 +33,9 @@
 	  <br>Don't have an account? <a href="/register">Register Here!</a>
 	  
 	</font>
+	</center>
 	{% endif %}    
-	<hr>
+	
       </div>
     </div>
 {% endblock %}
