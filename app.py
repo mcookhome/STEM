@@ -41,13 +41,21 @@ def profile(user=None):
       c.execute("select * from uinfo")
 
       tabledata = c.fetchall()
+      userexists = False
       for d in tabledata:
          if user == d[0]:
+            userexists = True
             first = d[2]
             last = d[3]
-            email = d[4]
-            phone = d[5]
+            phone = d[4]
+            email = d[5]
             facebook = d[6]
+      
+      conn.close()
+        
+      if userexists == False:
+         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=user,ids=ids);
+
       fid=""
       rfacebook=facebook[::-1]
       print rfacebook
@@ -57,9 +65,12 @@ def profile(user=None):
          else:
             fid = n +fid
             print fid
-         
-      conn.close()
-      return render_template("profile.html", loggedin=loggedin, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids)
+     
+      isityou = False
+      if user==username:
+         isityou=True
+    
+      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids)
    else:
       loggedin=False
       username = '-'

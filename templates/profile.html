@@ -4,6 +4,8 @@
  
 {% if loggedin == True %}
 <br><br>
+
+{% if userexists == True %}
 <img src="//graph.facebook.com/{{fid}}/picture?type=large"><br>
 <b><u>First Name:</u></b> &nbsp {{first}} <br>
 <b><u>Last Name:</u></b> &nbsp{{last}} <br>
@@ -12,7 +14,21 @@
 <b><u>Facebook Username:</u></b> 
 {% if facebook!="" %} &nbsp{{facebook}} {% endif %}
 {% if facebook=="" %} &nbsp No Username Saved {% endif %} <br>      
+<br>
+{% if isityou == True %}
+<font size = 2>
+<a class="pure-button" href="/editprofile" type="submit"> Edit Profile </a>
+<br><br> </font>
 {% endif %}
+
+{% endif %}
+
+{% if userexists == False %}
+<h3> I'm sorry, but the username '{{username}}' does not exist. </h3>
+{% endif %}
+
+{% endif %}
+
 
 {% if loggedin == False %}
 <h3> Login to your account to access profiles! </h3>
