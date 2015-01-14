@@ -202,8 +202,7 @@ def register():
             print "Username % is already in use" %username
 
       if registered:
-         doc = [username,password]
-         insinfo="insert into uinfo values ('"+username+"','"+password+"','"+first+"','"+last+"','"+email+"','"+phone+"','"+facebook+"')"
+         insinfo="insert into uinfo values ('"+username+"','"+password+"','"+first+"','"+last+"','"+phone+"','"+email+"','"+facebook+"')"
          c.execute(insinfo)
          conn.commit()
          print 'Username and Password have been recorded as variables'
@@ -217,6 +216,57 @@ def register():
       return render_template("register.html", page=2, reason=reason,ids=ids)
    else:
       return render_template("register.html", page=3, loggedin=loggedin, username=username, ids=ids) 
+
+@app.route("/edit",methods=['GET','POST'])
+def edit():
+   ids= manager.getIDs()
+   conn = sqlite3.connect("stem.db")
+   c = conn.cursor()
+  
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+      if request.method=='POST':
+         if request.form["submit"] == "Go":
+            user=request.form["query"]
+            path="profile/"+user
+            print path
+            return redirect(path)
+         if request.form["submit"] == "Update":
+            first = request.form['first']
+            last = request.form['last']
+            email = request.form['email']
+            phone = request.form['phone']
+
+            if 'facebook' in request.form:
+               facebook = request.form['facebook']
+            else:
+               facebook = ""
+            
+            insinfo="update uinfo set first='"+first+"',last='"+last+"',phone='"+phone+"',email='"+email+"',facebook='"+facebook+"' where username='"+username+"'"
+            c.execute(insinfo)
+            conn.commit()
+            return render_template("edit.html", updated=True, loggedin=loggedin, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, ids=ids)
+
+      c.execute("select * from uinfo")
+
+ 
+      tabledata = c.fetchall()
+      for d in tabledata:
+         if username == d[0]:
+            first = d[2]
+            last = d[3]
+            phone = d[4]
+            email = d[5]
+            facebook = d[6]
+      
+      conn.close()
+        
+      return render_template("edit.html", loggedin=loggedin, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, ids=ids)
+   else:
+      loggedin=False
+      username = '-'
+      return render_template("profile.html", loggedin=loggedin, username=username,ids=ids)
 
 
 if __name__ == "__main__":
