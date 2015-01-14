@@ -4,8 +4,7 @@
  
 {% if loggedin == True %}
 <br><br>
-<a class="pure-button" href="/logout" type = "submit"> Logout </a>     
-<br><br>
+<img src="//graph.facebook.com/{{fid}}/picture?type=large"><br>
 <b><u>First Name:</u></b> &nbsp {{first}} <br>
 <b><u>Last Name:</u></b> &nbsp{{last}} <br>
 <b><u>Email Address:</u></b> &nbsp{{email}} <br>
@@ -16,7 +15,7 @@
 {% endif %}
 
 {% if loggedin == False %}
-<h3> Login to your account to access your profile! </h3>
+<h3> Login to your account to access profiles! </h3>
 {% endif %}
 
 {% endblock %}
