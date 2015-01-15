@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, session,redirect,url_for
 import csv
 import sqlite3,unicodedata
 from utils import manager
+import requests
+
+
 app = Flask(__name__)
 
 @app.route("/",methods=['GET', 'POST'])
@@ -11,10 +14,7 @@ def home():
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            user=request.form["query"]
-            path="profile/"+user
-            print path
-            return redirect(path)
+            return redirect(manager.getProfilePath())
       loggedin=True
       username=session['username']
       print ids
@@ -29,10 +29,12 @@ def profile(user=None):
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            user=request.form["query"]
-            path="profile/"+user
-            print path
-            return redirect(path)
+            return redirect(manager.getProfilePath())
+         elif request.form["submit"] == "Send":
+            print "haha"
+            manager.sendEmail();
+         else:
+            print "nada"
       loggedin=True
       username=session['username']
       conn = sqlite3.connect("stem.db")
@@ -72,10 +74,7 @@ def login():
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            user=request.form["query"]
-            path="profile/"+user
-            print path
-            return redirect(path)
+            return redirect(manager.getProfilePath())
       luser = session['username']
       return render_template("login.html", loggedin=True, username=luser,ids=ids)
 
@@ -140,10 +139,7 @@ def register():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            user=request.form["query"]
-            path="profile/"+user
-            print path
-            return redirect(path)
+            return redirect(manager.getProfilePath())
    else:
       loggedin=False
       username=''
