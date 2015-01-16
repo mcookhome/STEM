@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session,redirect,url_for
 import csv
 import sqlite3,unicodedata, requests
 from utils import manager
+from twilio.rest import TwilioRestClient 
 
 
 app = Flask(__name__)
@@ -39,6 +40,7 @@ def profile(user=None):
          elif request.form["submit"] == "Send":
             print "haha"
             manager.sendEmail()
+            manager.sendText()
          else:
             print "nada"
       loggedin=True
