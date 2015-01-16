@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session,redirect,url_for
 import csv
 import sqlite3,unicodedata, requests
 from utils import manager
+
+
 app = Flask(__name__)
 
 @app.route("/",methods=['GET', 'POST'])
@@ -11,7 +13,10 @@ def home():
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            return redirect(manager.getProfilePath())
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
       loggedin=True
       username=session['username']
       print ids
@@ -26,7 +31,11 @@ def profile(user=None):
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            return redirect(manager.getProfilePath())
+            print manager.getProfilePath()
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
          elif request.form["submit"] == "Send":
             print "haha"
             manager.sendEmail()
@@ -53,8 +62,7 @@ def profile(user=None):
       conn.close()
         
       if userexists == False:
-         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=user,ids=ids);
-
+         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids);
       fid=""
       rfacebook=facebook[::-1]
       print rfacebook
@@ -64,11 +72,9 @@ def profile(user=None):
          else:
             fid = n +fid
             print fid
-     
       isityou = False
       if user==username:
          isityou=True
-    
       return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids)
    else:
       loggedin=False
@@ -82,7 +88,10 @@ def login():
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            return redirect(manager.getProfilePath())
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
       luser = session['username']
       return render_template("login.html", loggedin=True, username=luser,ids=ids)
 
@@ -147,7 +156,10 @@ def register():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            return redirect(manager.getProfilePath())
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
    else:
       loggedin=False
       username=''
@@ -221,7 +233,10 @@ def edit():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            return redirect(manager.getProfilePath())
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
          if request.form["submit"] == "Update":
             first = request.form['first']
             last = request.form['last']

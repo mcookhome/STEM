@@ -14,8 +14,12 @@ def getIDs():
     return ids
 
 def getProfilePath():
+    ids=getIDs()
     user=request.form["query"]
     path="profile/"+user
+    #if user not in ids:
+     #   return ""
+    print path
     return path
 
 def sendEmail():
