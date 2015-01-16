@@ -67,11 +67,11 @@
 	      <li>
     <input class="pure-input-1-5 suggest-user" name="query" type="text" placeholder="Username" autocomplete="off"></li>
 	      <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Go"></li>
-	      <form>
+	     
 		
 	  <li><a href="/profile/{{username}}">{{username}}</a></li>
 	  <li><a href="/logout">Logout</a></li>
-	  
+	    </form>
 	  {% else %}
           <li><a href="/login">Login</a></li>
           <li><a href="/register">Register</a></li>
@@ -95,6 +95,9 @@
 
     </font>
 <center>
+  <form class="pure-form" method="post">
+    <input class="button-xsmall pure-button" name="submit" type="submit"  value="Send">
+  </form>
  
 <div
   class="fb-like"
