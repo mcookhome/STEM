@@ -36,7 +36,7 @@ def sendEmail():
               "text": "POOON DO U SEE THIS IF SO CONTACT ME"}) 
 
 
-def sendText2():
+def sendText2():#uses eztexting bc cheap
     u = "xdllb"
     p = "xdllb"
 
@@ -53,7 +53,7 @@ def sendText2():
     print "ayylmao"
     print u.read()
     
-def sendText():
+def sendTextTwilio():#too much money :(
     print "xDtext"
  
     # put your own credentials here 
