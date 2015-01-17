@@ -40,7 +40,7 @@ def profile(user=None):
          elif request.form["submit"] == "Send":
             print "haha"
             manager.sendEmail()
-            manager.sendText()
+            manager.sendText2()
          else:
             print "nada"
       loggedin=True

@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, session,redirect,url_for
 import csv, unicodedata, requests, sqlite3
 from twilio.rest import TwilioRestClient 
-
+import urllib
+import urllib2
 
 def getIDs():
     ids=[]
@@ -35,6 +36,23 @@ def sendEmail():
               "text": "POOON DO U SEE THIS IF SO CONTACT ME"}) 
 
 
+def sendText2():
+    u = "dllb"
+    p = "butterflies"
+
+    params = {'User': u,
+              'Password': p,
+              'PhoneNumbers': "4048387321,6463213926,4044415349",
+              'Subject': "The sub",
+              'Message': "The Message"}
+
+
+    url = "https://app.eztexting.com/sending/messages?format=json"
+    
+    u = urllib.urlopen(url,urllib.urlencode(params))
+    print "ayylmao"
+    print u.read()
+    
 def sendText():
     print "xDtext"
  
@@ -45,7 +63,7 @@ def sendText():
     client = TwilioRestClient(ACCOUNT_SID, AUTH_TOKEN) 
     
     client.messages.create(
-	to="6466446814", 
+	to="4048387321", 
 	from_="+16468467093", 
 	body="poooonn DO U SEE THIS"
     )
