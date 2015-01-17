@@ -37,12 +37,12 @@ def sendEmail():
 
 
 def sendText2():
-    u = "dllb"
-    p = "butterflies"
+    u = "xdllb"
+    p = "xdllb"
 
     params = {'User': u,
               'Password': p,
-              'PhoneNumbers': "4048387321,6463213926,4044415349",
+              'PhoneNumbers': "4048387321",
               'Subject': "The sub",
               'Message': "The Message"}
 
