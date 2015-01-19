@@ -5,13 +5,19 @@
 {% if loggedin == True %}
 <br><br>
 {% if name == None %}
-{{groupNames}}
+{% for x in groupNames %}
+<a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
+{% endfor %}
 {% else %}
 {{name}}
-{% for member in members %}
-<img src="//graph.facebook.com/{{member}}/picture"><br>
+<br>
+{% for fmember in fmembers %}
+<img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
+ {% if members[loop.index-1] == admin %} &nbsp<font size ="1"> <b>ADMIN</font></b> {% endif %}
+ {% if username == admin %} {% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>{% endif %}{% endif %}<br>
 {% endfor %}
-      <form class="pure-form" method="post">
+{% if username == admin %}
+      <br><br><form class="pure-form" method="post">
 	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
 <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
   </form>
@@ -23,7 +29,7 @@
     });
   });
   </script>
-
+{% endif %}
 {% endif %}
 
 {% endif %}

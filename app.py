@@ -110,18 +110,28 @@ def group(name=None):
          return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name) 
       else:
          if request.method=='POST':
-            if request.form["submit"] == "Add member":
-               print "ldlddlld"
-               requestedMember=request.form["member"]
-               manager.addMember(requestedMember,name)
-         
-         members= manager.getMemberFacebook(name)
+            print "POST"
+            members=manager.getMembers(name)
+            if "submit" in request.form:
+               if request.form["submit"] == "Add member":
+                  print "ldlddlld"
+                  requestedMember=request.form["member"]
+                  manager.addMember(requestedMember,name)
+            else:
+               print "BLAH"
+               for rmem in members:
+                  print "HAH"
+                  if rmem in request.form:
+                     print "REMOVING"
+                     manager.removeMember(rmem,name)
+         members=manager.getMembers(name)
+         admin = manager.getAdmin(name)
+         fmembers= manager.getMemberFacebook(name)
          print members
          possible=manager.getPossible(name)
          print ids
          print possible
-         return render_template("group.html",loggedin=loggedin,username=username, ids=ids, name=name, members=members,possible=possible)
-
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible)
 
 @app.route("/login",methods=['GET','POST'])
 def login():
@@ -305,7 +315,6 @@ def edit():
       loggedin=False
       username = '-'
       return render_template("profile.html", loggedin=loggedin, username=username,ids=ids)
-
 
 if __name__ == "__main__":
     app.debug = True

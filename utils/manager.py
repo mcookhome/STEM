@@ -171,7 +171,6 @@ def getDefaultPath(n):
             break
         else:
             fid = n +fid
-            print fid
     return fid
 
 def getMembers(group):
@@ -215,3 +214,21 @@ def addMember(username,name):
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
 
+def getAdmin(name):
+    conn = sqlite3.connect("stem.db")
+    c = conn.cursor()
+    c.execute("select * from "+name)
+    members = c.fetchall()
+    for x in members:
+        if x[1]=="admin":
+            return x[0]
+    return "None"
+
+def removeMember(username,name):
+    conn = sqlite3.connect('stem.db')
+    cursor = conn.cursor()
+    remMember = "DELETE FROM "+ name + " WHERE member='"+username+"'"
+    print remMember
+    cursor.execute(remMember)
+    conn.commit()
+    conn.close()
