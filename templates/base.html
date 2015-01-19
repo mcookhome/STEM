@@ -98,10 +98,9 @@
       {% if loggedin == True %}
       You are logged in as {{username}}
       <form class="pure-form" method="post">
-	<input class="pure-input-1-5 suggest-user" name="gname" type="text" placeholder="Group Name" autocomplete="off"></li>
+	<input class="pure-input-1-5" name="gname" type="text" placeholder="Group Name" autocomplete="off"></li>
 <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Make group">
-	     
-      
+  </form>
       {% endif %}
      
       {% if loggedin == False %}

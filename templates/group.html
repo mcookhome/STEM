@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block text %}
+ 
+{% if loggedin == True %}
+<br><br>
+{% if name == None %}
+{{groupNames}}
+{% else %}
+{{name}}
+{% for member in members %}
+<img src="//graph.facebook.com/{{member}}/picture"><br>
+{% endfor %}
+      <form class="pure-form" method="post">
+	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
+<li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
+  </form>
+  <script>
+  $(function() {
+    var availableTags = {{possible | safe}};
+    $( "input.suggest-member" ).autocomplete({
+      source: availableTags
+    });
+  });
+  </script>
+
+{% endif %}
+
+{% endif %}
+
+{% endblock %}
