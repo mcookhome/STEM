@@ -191,4 +191,27 @@ def getMemberFacebook(group):
     members=getMembers(group)
     members[:]=[getDefaultPath(member) for member in members]
     return members
-            
+
+def getPossible(group):
+    possible = []
+    for n in getIDs():
+        if n not in getMembers(group):
+            possible.append(n)
+    return possible
+
+def addMember(username,name):
+    if username not in getIDs():
+        print "not a user"
+        return
+    conn = sqlite3.connect('stem.db')
+    cursor = conn.cursor()
+    # Insert a row of data
+    addMember= "INSERT INTO "+ name+ " VALUES ('"+username+"', 'member')"
+    print addMember
+    cursor.execute(addMember)
+    # Save (commit) the changes
+    conn.commit()
+    # We can also close the connection if we are done with it.
+    # Just be sure any changes have been committed or they will be lost.
+    conn.close()
+

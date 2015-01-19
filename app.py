@@ -108,9 +108,18 @@ def group(name=None):
                groupNames.append(n)
          return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name) 
       else:
+         if request.method=='POST':
+            if request.form["submit"] == "Add member":
+               print "ldlddlld"
+               requestedMember=request.form["member"]
+               manager.addMember(requestedMember,name)
+         
          members= manager.getMemberFacebook(name)
          print members
-         return render_template("group.html",loggedin=loggedin,username=username, ids=ids, name=name, members=members)
+         possible=manager.getPossible(name)
+         print ids
+         print possible
+         return render_template("group.html",loggedin=loggedin,username=username, ids=ids, name=name, members=members,possible=possible)
 
 
 @app.route("/login",methods=['GET','POST'])
