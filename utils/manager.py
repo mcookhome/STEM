@@ -25,26 +25,27 @@ def getProfilePath():
     print path
     return path
 
-def sendEmail():
+def sendEmail(email,subject,message):
     print "xD"
+    e = "2sac <terranceliang01@gmail.com>," + email
     return requests.post(
         "https://api.mailgun.net/v2/sandboxd754b0c61d9e423b927d1b46256add5a.mailgun.org/messages",
         auth=("api", "key-65c16214d5cecd85f38bfd48f55b2ea3"),
         data={"from": "Mailgun Sandbox <postmaster@sandboxd754b0c61d9e423b927d1b46256add5a.mailgun.org>",
-              "to": "poooooooooooN <kevin.poon69@gmail.com>, mchamma <mcookhome@gmail.com>,2sac <terranceliang01@gmail.com>",
-              "subject": "POOOOOOOON",
-              "text": "POOON DO U SEE THIS IF SO CONTACT ME"}) 
+              "to": e,
+              "subject": subject,
+              "text": message}) 
 
 
-def sendText2():#uses eztexting bc cheap
+def sendText2(number,subject,message):#uses eztexting bc cheap
     u = "xdllb"
     p = "xdllb"
 
     params = {'User': u,
               'Password': p,
-              'PhoneNumbers': "4048387321",
-              'Subject': "The sub",
-              'Message': "The Message"}
+              'PhoneNumbers': number,
+              'Subject': subject,
+              'Message': message}
 
 
     url = "https://app.eztexting.com/sending/messages?format=json"

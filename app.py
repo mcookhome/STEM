@@ -39,8 +39,25 @@ def profile(user=None):
                return redirect(manager.getProfilePath())
          elif request.form["submit"] == "Send":
             print "haha"
-            manager.sendEmail()
-            manager.sendText2()
+            subject = request.form['subject']
+            message = request.form['message']
+            conn = sqlite3.connect("stem.db")
+            c = conn.cursor()
+            c.execute("select * from uinfo")
+            tabledata = c.fetchall()
+            userexists = False
+            for d in tabledata:
+               if user == d[0]:
+                  first = d[2]
+                  last = d[3]
+                  number = d[4]
+                  email = d[5]
+            conn.close()
+            email = first + " " + last +"<"+email+">"
+            print email
+            print number
+            manager.sendEmail(email,subject,message)
+            manager.sendText2(number,subject,message)
          else:
             print "nada"
       loggedin=True
