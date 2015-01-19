@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block text %}
+ 
+{% if loggedin == True %}
+<br><br>
+{% if name == None %}
+{{groupNames}}
+{% else %}
+{{name}}
+{% for member in members %}
+<img src="//graph.facebook.com/{{member}}/picture"><br>
+{% endfor %}
+{% endif %}
+
+{% endif %}
+
+{% endblock %}

@@ -23,6 +23,7 @@ def home():
          if request.form["submit"] == "Make group":
             groupName = request.form["gname"]
             print groupName
+            print manager.getTables()
             manager.makeGroup(groupName, username)
 
       print ids
@@ -46,18 +47,12 @@ def profile(user=None):
             print "haha"
             subject = request.form['subject']
             message = request.form['message']
-            conn = sqlite3.connect("stem.db")
-            c = conn.cursor()
-            c.execute("select * from uinfo")
-            tabledata = c.fetchall()
             userexists = False
-            for d in tabledata:
-               if user == d[0]:
-                  first = d[2]
-                  last = d[3]
-                  number = d[4]
-                  email = d[5]
-            conn.close()
+            first =manager.getFirst(username)        
+            last=manager.getLast(username)        
+            email=manager.getEmail(username)        
+            phone=manager.getPhone(username)        
+            facebook=manager.getFacebook(username) 
             email = first + " " + last +"<"+email+">"
             print email
             print number
@@ -87,15 +82,7 @@ def profile(user=None):
         
       if userexists == False:
          return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids);
-      fid=""
-      rfacebook=facebook[::-1]
-      print rfacebook
-      for n in rfacebook:
-         if (n == "/"):
-            break
-         else:
-            fid = n +fid
-            print fid
+      fid=manager.getDefaultPath(user)
       isityou = False
       if user==username:
          isityou=True
@@ -104,6 +91,26 @@ def profile(user=None):
       loggedin=False
       username = '-'
       return render_template("profile.html", loggedin=loggedin, username=username,ids=ids)
+
+
+@app.route("/group/", methods = ['GET', 'POST'])
+@app.route("/group/<name>",methods=['GET','POST'])
+def group(name=None):
+   ids= manager.getIDs()
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+      if name == None:
+         print "hello"
+         groupNames=[]
+         for n in manager.getTables():
+            if n != "uinfo":
+               groupNames.append(n)
+         return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name) 
+      else:
+         members= manager.getMemberFacebook(name)
+         print members
+         return render_template("group.html",loggedin=loggedin,username=username, ids=ids, name=name, members=members)
 
 
 @app.route("/login",methods=['GET','POST'])
@@ -277,19 +284,11 @@ def edit():
             conn.commit()
             return render_template("edit.html", updated=True, loggedin=loggedin, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, ids=ids)
 
-      c.execute("select * from uinfo")
-
- 
-      tabledata = c.fetchall()
-      for d in tabledata:
-         if username == d[0]:
-            first = d[2]
-            last = d[3]
-            phone = d[4]
-            email = d[5]
-            facebook = d[6]
-      
-      conn.close()
+      first =manager.getFirst(username)        
+      last=manager.getLast(username)        
+      email=manager.getEmail(username)        
+      phone=manager.getPhone(username)        
+      facebook=manager.getFacebook(username)        
         
       return render_template("edit.html", loggedin=loggedin, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, ids=ids)
    else:

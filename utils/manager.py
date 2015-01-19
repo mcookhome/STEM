@@ -78,12 +78,19 @@ def getTables():
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
     
         rows = cursor.fetchall()
-        print rows
-        for row in rows:
-            print "help"
-            print row[0]
+        rows = [x[0] for x in rows]
+        rows[:]=[unicodedata.normalize('NFKD',o).encode('ascii','ignore') for o in rows]
+        return rows
+
+
 
 def makeGroup(groupname,maker):
+    if groupname in getTables():
+        print "table already made"
+        return
+    if groupname == "":
+        print "need a name"
+        return
     conn = sqlite3.connect('stem.db')
     cursor = conn.cursor()
     command= "CREATE TABLE " + groupname+" (member text, powers text)"
@@ -99,3 +106,89 @@ def makeGroup(groupname,maker):
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
+
+def getFirst(n):
+    conn = sqlite3.connect("stem.db")
+    c = conn.cursor()
+    c.execute("select * from uinfo")
+    tabledata = c.fetchall()
+    for d in tabledata:
+        if n == d[0]:
+            first= d[2]
+    conn.close()
+    return first
+        
+def getLast(n):
+    conn = sqlite3.connect("stem.db")
+    c = conn.cursor()
+    c.execute("select * from uinfo")
+    tabledata = c.fetchall()
+    for d in tabledata:
+        if n == d[0]:
+            last = d[3]
+    conn.close()
+    return last
+        
+def getPhone(n):
+    conn = sqlite3.connect("stem.db")
+    c = conn.cursor()
+    c.execute("select * from uinfo")
+    tabledata = c.fetchall()
+    for d in tabledata:
+        if n == d[0]:
+            phone = d[4]
+    conn.close()
+    return phone
+
+def getEmail(n):
+    conn = sqlite3.connect("stem.db")
+    c = conn.cursor()
+    c.execute("select * from uinfo")
+    tabledata = c.fetchall()
+    for d in tabledata:
+        if n == d[0]:
+            email = d[5]
+    conn.close()
+    return email
+        
+def getFacebook(n):
+    conn = sqlite3.connect("stem.db")
+    c = conn.cursor()
+    c.execute("select * from uinfo")
+    tabledata = c.fetchall()
+    for d in tabledata:
+        if n == d[0]:
+            facebook = d[6]
+    conn.close()
+    return facebook
+        
+def getDefaultPath(n):
+    fid=""
+    rfacebook=getFacebook(n)[::-1]
+    print rfacebook
+    for n in rfacebook:
+        if (n == "/"):
+            break
+        else:
+            fid = n +fid
+            print fid
+    return fid
+
+def getMembers(group):
+    conn = sqlite3.connect('stem.db')
+    
+    with conn:
+        
+        cursor = conn.cursor()    
+        cursor.execute("SELECT member FROM "+ group)
+    
+        rows = cursor.fetchall()
+        rows = [x[0] for x in rows]
+        rows[:]=[unicodedata.normalize('NFKD',o).encode('ascii','ignore') for o in rows]
+        return rows
+
+def getMemberFacebook(group):
+    members=getMembers(group)
+    members[:]=[getDefaultPath(member) for member in members]
+    return members
+            
