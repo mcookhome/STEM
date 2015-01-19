@@ -8,7 +8,7 @@ Following our project name (dllb - developers; leaders; learners; buffoons)
 We want to create an efficient, simple, adaptable group management web application which allows easy contact between group members and streamlines workflow.
 
 Features:
-* login, creat account, sessions, change info, etc. etc.
+* login, create account, sessions, change info, etc. etc.
 * instant messaging
 * create a group
 * administrative powers vs. normal powers with databasing
@@ -29,4 +29,16 @@ Goals:<br><br>
 4. decide how it will function (drag&drop?, tabs?, different webpages?)<br>
 5. Finish it <br>
 
+<hr>
 
+Completed Features:
+* Login, Register, Profile
+* EZTexting (texting API) and MailGun (email API)
+* Minimal Facebook API usage
+
+Features in Progress:
+* Group Making and Organizing
+
+Features that Need to be Done:
+* Chat/Instant Messaging
+* Group Working APIs (GitHub, GoogleDoc) or our own versions of it.
