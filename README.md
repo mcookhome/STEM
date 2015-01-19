@@ -41,4 +41,4 @@ Features in Progress:
 
 Features that Need to be Done:
 * Chat/Instant Messaging
-* Group Working APIs (GitHub, GoogleDoc) or our own versions of it.
+* Group Working APIs (GitHub, GoogleDoc) or our own versions of them.
