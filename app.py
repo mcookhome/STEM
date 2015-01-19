@@ -25,6 +25,7 @@ def home():
             print groupName
             print manager.getTables()
             manager.makeGroup(groupName, username)
+            return redirect("group/"+groupName)
 
       print ids
    else:
