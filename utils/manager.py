@@ -68,3 +68,34 @@ def sendTextTwilio():#too much money :(
 	from_="+16468467093", 
 	body="poooonn DO U SEE THIS"
     )
+
+def getTables():
+    conn = sqlite3.connect('stem.db')
+
+    with conn:
+    
+        cursor = conn.cursor()    
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+    
+        rows = cursor.fetchall()
+        print rows
+        for row in rows:
+            print "help"
+            print row[0]
+
+def makeGroup(groupname,maker):
+    conn = sqlite3.connect('stem.db')
+    cursor = conn.cursor()
+    command= "CREATE TABLE " + groupname+" (member text, powers text)"
+    # Create table
+    print command
+    cursor.execute(command)
+    # Insert a row of data
+    addMaker= "INSERT INTO "+ groupname+ " VALUES ('"+maker+"', 'admin')"
+    print addMaker
+    cursor.execute(addMaker)
+    # Save (commit) the changes
+    conn.commit()
+    # We can also close the connection if we are done with it.
+    # Just be sure any changes have been committed or they will be lost.
+    conn.close()

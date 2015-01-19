@@ -12,14 +12,19 @@ def home():
 
    ids= manager.getIDs()
    if 'username' in session:
+      loggedin=True
+      username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
             if manager.getProfilePath() == "profile/":
                print "he"
             else:
                return redirect(manager.getProfilePath())
-      loggedin=True
-      username=session['username']
+         if request.form["submit"] == "Make group":
+            groupName = request.form["gname"]
+            print groupName
+            manager.makeGroup(groupName, username)
+
       print ids
    else:
       loggedin=False
