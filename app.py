@@ -37,6 +37,7 @@ def home():
 def profile(user=None):
    ids= manager.getIDs()
    if 'username' in session:
+      username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
             print manager.getProfilePath()
@@ -56,13 +57,12 @@ def profile(user=None):
             facebook=manager.getFacebook(username) 
             email = first + " " + last +"<"+email+">"
             print email
-            print number
+            print phone
             manager.sendEmail(email,subject,message)
-            manager.sendText2(number,subject,message)
+            manager.sendText2(phone,subject,message)
          else:
             print "nada"
       loggedin=True
-      username=session['username']
       conn = sqlite3.connect("stem.db")
       c = conn.cursor()
 
