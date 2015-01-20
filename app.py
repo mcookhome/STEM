@@ -37,6 +37,7 @@ def home():
 def profile(user=None):
    ids= manager.getIDs()
    if 'username' in session:
+      username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
             print manager.getProfilePath()
@@ -62,7 +63,6 @@ def profile(user=None):
          else:
             print "nada"
       loggedin=True
-      username=session['username']
       conn = sqlite3.connect("stem.db")
       c = conn.cursor()
 
