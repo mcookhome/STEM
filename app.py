@@ -57,9 +57,9 @@ def profile(user=None):
             facebook=manager.getFacebook(username) 
             email = first + " " + last +"<"+email+">"
             print email
-            print number
+            print phone
             manager.sendEmail(email,subject,message)
-            manager.sendText2(number,subject,message)
+            manager.sendText2(phone,subject,message)
          else:
             print "nada"
       loggedin=True
