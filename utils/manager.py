@@ -39,9 +39,9 @@ def sendEmail(email,first,last,username,message):
 
 
 def sendText2(number,first,last,username,message):#uses eztexting bc cheap
-    u = "xdllb"
-    p = "xdllb"
-    m = "dllb: Text from "+first + " " + last + " (" + username + ")" + message
+    u = "dllb3"
+    p = "catfish"
+    m = "dllb: Text from "+first + " " + last + " (" + username + ") " + message
     params = {'User': u,
               'Password': p,
               'PhoneNumbers': number,
@@ -107,59 +107,36 @@ def makeGroup(groupname,maker):
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
 
-def getFirst(n):
+def getItem(table,ovalue,oindex,rindex):
     conn = sqlite3.connect("stem.db")
     c = conn.cursor()
-    c.execute("select * from uinfo")
-    tabledata = c.fetchall()
+    command = "select * from " + table
+    c.execute(command)
+    tabledata=c.fetchall()
     for d in tabledata:
-        if n == d[0]:
-            first= d[2]
+        if ovalue==d[oindex]:
+            value = d[rindex]
     conn.close()
+    return value
+
+def getFirst(n):
+    first = getItem("uinfo",n,0,2)
     return first
         
 def getLast(n):
-    conn = sqlite3.connect("stem.db")
-    c = conn.cursor()
-    c.execute("select * from uinfo")
-    tabledata = c.fetchall()
-    for d in tabledata:
-        if n == d[0]:
-            last = d[3]
-    conn.close()
+    last = getItem("uinfo",n,0,3)
     return last
         
 def getPhone(n):
-    conn = sqlite3.connect("stem.db")
-    c = conn.cursor()
-    c.execute("select * from uinfo")
-    tabledata = c.fetchall()
-    for d in tabledata:
-        if n == d[0]:
-            phone = d[4]
-    conn.close()
+    phone = getItem("uinfo",n,0,4)
     return phone
 
 def getEmail(n):
-    conn = sqlite3.connect("stem.db")
-    c = conn.cursor()
-    c.execute("select * from uinfo")
-    tabledata = c.fetchall()
-    for d in tabledata:
-        if n == d[0]:
-            email = d[5]
-    conn.close()
+    email = getItem("uinfo",n,0,5)
     return email
         
 def getFacebook(n):
-    conn = sqlite3.connect("stem.db")
-    c = conn.cursor()
-    c.execute("select * from uinfo")
-    tabledata = c.fetchall()
-    for d in tabledata:
-        if n == d[0]:
-            facebook = d[6]
-    conn.close()
+    facebook = getItem("uinfo",n,0,6)
     return facebook
         
 def getDefaultPath(n):

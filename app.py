@@ -51,14 +51,17 @@ def profile(user=None):
             userexists = False
             first =manager.getFirst(username)        
             last=manager.getLast(username)        
-            email=manager.getEmail(username)        
-            phone=manager.getPhone(username)        
-            facebook=manager.getFacebook(username) 
-            email = first + " " + last +"<"+email+">"
+            email=manager.getEmail(user)        
+            phone=manager.getPhone(user)
+            sfirst=manager.getFirst(user)
+            slast=manager.getLast(user)
+            email = sfirst + " " + slast +"<"+email+">"
             print email
             print phone
             manager.sendEmail(email,first,last,username,message)
+            print"success with email"
             manager.sendText2(phone,first,last,username,message)
+            print "success with text"
          else:
             print "nada"
       loggedin=True
