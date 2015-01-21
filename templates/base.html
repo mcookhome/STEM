@@ -45,7 +45,7 @@
       }
 
       .home-menu .pure-menu-heading {
-      color: white;
+      color: black;
       font-weight: 400;
       font-size: 120%;
       text-transform:lowercase;
@@ -57,13 +57,12 @@
       background:#111;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 39px;
   right: 0px;
   bottom: 0px;
   left: -50px;
   z-index: 0;
-  
   /* non-critical appearance styles */
   list-style: none;
   background: #111;
@@ -113,21 +112,21 @@
 /* Nav Trigger */
 .nav-trigger {
   /* critical styles - hide the checkbox input */
-  position: absolute;
+  position: relative;
   clip: rect(0, 0, 0, 0);
 }
 
 label[for="nav-trigger"] {
   /* critical positioning styles */
   position: fixed;
-  left: -310px; top: 10px;
+  left: 10px; top: 10px;
   z-index: 3;
   
   /* non-critical apperance styles */
   height: 40px;
-  width: 368px;
+  width: 40px;
   cursor: pointer;
-  background-image: url("../static/navilogo.png");
+  background-image: url("../static/bomb.gif");
   background-size: contain;
 }
 
@@ -186,11 +185,9 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
    }(document, 'script', 'facebook-jssdk'));
 </script>
 <ul class="navigation">
-	<li class="nav-item"><a href="#">Home</a></li>
-	<li class="nav-item"><a href="#">Portfolio</a></li>
-	<li class="nav-item"><a href="#">About</a></li>
-	<li class="nav-item"><a href="#">Blog</a></li>
-	<li class="nav-item"><a href="#">Contact</a></li>
+        <li class="nav-item"><a href="/profile/{{username}}">{{username}}</a></li>
+	<li class="nav-item"><a href="/group">Groups</a></li>
+	<li class="nav-item"><a href="/create">Create Group</a></li>
 </ul>
 
 <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -213,8 +210,6 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 	      <li><input class="button-small pure-button" name="submit" type="submit"  value="Go"></li>
 	     
 		
-	  <li><a href="/profile/{{username}}">{{username}}</a></li>
-	  <li><a href="/group">Groups</a></li>
 	  <li><a href="/logout">Logout</a></li>
 	    </form>
 	  {% else %}
@@ -228,15 +223,11 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 <div class="site-wrap">
    
     <font color="white" face="arial" size="3">
-      <br><br><br><br><br><br>
+      <br>
       {% block text%}
-      
+      <br><br><br>
       {% if loggedin == True %}
       You are logged in as {{username}}
-      <form class="pure-form" method="post">
-	<input class="pure-input-1-5" name="gname" type="text" placeholder="Group Name" autocomplete="off"></li>
-<li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Make group">
-  </form>
       {% endif %}
      
       {% if loggedin == False %}
@@ -254,7 +245,7 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
   data-width="450"
   data-show-faces="true">
 </div>
-
+<br><br><img src="../static/navilogo2.png" height="68.7px" width="644.1px">
   </body>
     
 

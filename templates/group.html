@@ -3,7 +3,6 @@
 {% block text %}
  
 {% if loggedin == True %}
-<br><br>
 {% if name == None %}
 {% for x in groupNames %}
 <a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
