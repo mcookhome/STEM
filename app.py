@@ -47,7 +47,6 @@ def profile(user=None):
                return redirect(manager.getProfilePath())
          elif request.form["submit"] == "Send":
             print "haha"
-            subject = request.form['subject']
             message = request.form['message']
             userexists = False
             first =manager.getFirst(username)        
@@ -58,8 +57,8 @@ def profile(user=None):
             email = first + " " + last +"<"+email+">"
             print email
             print phone
-            manager.sendEmail(email,subject,message)
-            manager.sendText2(phone,subject,message)
+            manager.sendEmail(email,first,last,username,message)
+            manager.sendText2(phone,first,last,username,message)
          else:
             print "nada"
       loggedin=True
@@ -94,6 +93,32 @@ def profile(user=None):
       return render_template("profile.html", loggedin=loggedin, username=username,ids=ids)
 
 
+@app.route("/create",methods=['GET', 'POST'])
+def createGroup():
+   ids= manager.getIDs()
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+      if request.method=='POST':
+         if request.form["submit"] == "Go":
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
+         if request.form["submit"] == "Make group":
+            groupName = request.form["gname"]
+            print groupName
+            print manager.getTables()
+            manager.makeGroup(groupName, username)
+            return redirect("group/"+groupName)
+
+      print ids
+   else:
+      loggedin=False
+      username = '-'
+   return render_template("create.html", loggedin=loggedin, username=username,ids=ids)
+
+
 @app.route("/group/", methods = ['GET', 'POST'])
 @app.route("/group/<name>",methods=['GET','POST'])
 def group(name=None):
@@ -101,6 +126,13 @@ def group(name=None):
    if 'username' in session:
       loggedin=True
       username=session['username']
+      if request.method=='POST':
+         if request.form["submit"] == "Go":
+            print manager.getProfilePath()
+            if manager.getProfilePath() == "profile/":
+               print "he"
+            else:
+               return redirect(manager.getProfilePath())
       if name == None:
          print "hello"
          groupNames=[]

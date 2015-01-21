@@ -3,7 +3,6 @@
 {% block text %}
  
 {% if loggedin == True %}
-<br><br>
 
 {% if userexists == True %}
 <img src="//graph.facebook.com/{{fid}}/picture?type=large"><br>
@@ -21,14 +20,14 @@
 <br><br> </font>
 {% endif %}
   <form class="pure-form" method="post">
-    Subject:&nbsp&nbsp&nbsp <input required type="text" name="subject" style="width: 500px;"></input><br>
-    Message: <input required type="text" name="message" style="width: 500px; height: 200px;"></input><br><br>
-    <input class="button-xsmall pure-button" name="submit" type="submit"  value="Send" onclick="facebookPop()">
+    Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
+    <input class="button-xsmall pure-button" name="submit" type="submit"  value="Send" /*onclick="facebookPop()"*/>
   </form>
  
 {% endif %}
 
 {% if userexists == False %}
+<br><br>
 <h3> I'm sorry, but the username '{{user}}' does not exist. </h3>
 {% endif %}
 
