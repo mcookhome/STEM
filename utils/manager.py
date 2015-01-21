@@ -108,7 +108,7 @@ def makeGroup(groupname,maker):
     conn.close()
     conn = sqlite3.connect("chat.db")
     cursor = conn.cursor()
-    command = "CREATE TABLE IF NOT EXISTS" + groupname+" (user text, message text,  time text)"
+    command = "CREATE TABLE IF NOT EXISTS " + groupname+" (user text, message text,  time text)"
     cursor.execute(command)
     conn.commit()
     conn.close()
