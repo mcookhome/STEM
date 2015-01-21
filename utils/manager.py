@@ -39,8 +39,8 @@ def sendEmail(email,first,last,username,message):
 
 
 def sendText2(number,first,last,username,message):#uses eztexting bc cheap
-    u = "dllb3"
-    p = "catfish"
+    u = "dllbx"
+    p = "dllbx"
     m = "dllb: Text from "+first + " " + last + " (" + username + ") " + message
     params = {'User': u,
               'Password': p,
@@ -106,6 +106,13 @@ def makeGroup(groupname,maker):
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
+    conn = sqlite3.connect("chat.db")
+    cursor = conn.cursor()
+    command = "CREATE TABLE IF NOT EXISTS" + groupname+" (user text, message text,  time text)"
+    cursor.execute(command)
+    conn.commit()
+    conn.close()
+
 
 def getItem(table,ovalue,oindex,rindex):
     conn = sqlite3.connect("stem.db")
