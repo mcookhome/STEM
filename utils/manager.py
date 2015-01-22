@@ -3,6 +3,7 @@ import csv, unicodedata, requests, sqlite3
 from twilio.rest import TwilioRestClient 
 import urllib
 import urllib2
+from datetime import datetime
 
 def getIDs():
     ids=[]
@@ -93,12 +94,12 @@ def makeGroup(groupname,maker):
         return
     conn = sqlite3.connect('stem.db')
     cursor = conn.cursor()
-    command= "CREATE TABLE " + groupname+" (member text, powers text)"
+    command= "CREATE TABLE '" + groupname+"' (member text, powers text)"
     # Create table
     print command
     cursor.execute(command)
     # Insert a row of data
-    addMaker= "INSERT INTO "+ groupname+ " VALUES ('"+maker+"', 'admin')"
+    addMaker= "INSERT INTO '"+ groupname+ "' VALUES ('"+maker+"', 'admin')"
     print addMaker
     cursor.execute(addMaker)
     # Save (commit) the changes
@@ -108,8 +109,11 @@ def makeGroup(groupname,maker):
     conn.close()
     conn = sqlite3.connect("chat.db")
     cursor = conn.cursor()
-    command = "CREATE TABLE IF NOT EXISTS " + groupname+" (user text, message text,  time text)"
+    command = "CREATE TABLE IF NOT EXISTS '" + groupname+"' (id integer primary key, user text, message text,  time text)"
     cursor.execute(command)
+    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    initial = "INSERT INTO '"+ groupname+ "'(id,user,message,time) VALUES (1,'"+maker+"','Welcome to "+ groupname+"!','"+time+"')"
+    cursor.execute(initial)
     conn.commit()
     conn.close()
 
@@ -117,7 +121,7 @@ def makeGroup(groupname,maker):
 def getItem(table,ovalue,oindex,rindex):
     conn = sqlite3.connect("stem.db")
     c = conn.cursor()
-    command = "select * from " + table
+    command = "select * from '" + table +"'"
     c.execute(command)
     tabledata=c.fetchall()
     for d in tabledata:
@@ -163,7 +167,7 @@ def getMembers(group):
     with conn:
         
         cursor = conn.cursor()    
-        cursor.execute("SELECT member FROM "+ group)
+        cursor.execute("SELECT member FROM '"+ group+"'")
     
         rows = cursor.fetchall()
         rows = [x[0] for x in rows]
@@ -189,7 +193,7 @@ def addMember(username,name):
     conn = sqlite3.connect('stem.db')
     cursor = conn.cursor()
     # Insert a row of data
-    addMember= "INSERT INTO "+ name+ " VALUES ('"+username+"', 'member')"
+    addMember= "INSERT INTO '"+ name+ "' VALUES ('"+username+"', 'member')"
     print addMember
     cursor.execute(addMember)
     # Save (commit) the changes
@@ -201,7 +205,7 @@ def addMember(username,name):
 def getAdmin(name):
     conn = sqlite3.connect("stem.db")
     c = conn.cursor()
-    c.execute("select * from "+name)
+    c.execute("select * from '"+name+"'")
     members = c.fetchall()
     for x in members:
         if x[1]=="admin":
@@ -211,8 +215,17 @@ def getAdmin(name):
 def removeMember(username,name):
     conn = sqlite3.connect('stem.db')
     cursor = conn.cursor()
-    remMember = "DELETE FROM "+ name + " WHERE member='"+username+"'"
+    remMember = "DELETE FROM '"+ name + "' WHERE member='"+username+"'"
     print remMember
     cursor.execute(remMember)
+    conn.commit()
+    conn.close()
+
+def sendMessage(groupname,username, message):
+    conn = sqlite3.connect("chat.db")
+    cursor = conn.cursor()
+    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    initial = "INSERT INTO '"+ groupname+ "'(user,message,time) VALUES ('"+username+"','"+message+"','"+time+"')"
+    cursor.execute(initial)
     conn.commit()
     conn.close()

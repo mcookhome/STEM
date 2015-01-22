@@ -3,7 +3,7 @@ import csv
 import sqlite3,unicodedata, requests
 from utils import manager
 from twilio.rest import TwilioRestClient 
-
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -130,12 +130,13 @@ def group(name=None):
       loggedin=True
       username=session['username']
       if request.method=='POST':
-         if request.form["submit"] == "Go":
-            print manager.getProfilePath()
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
-               return redirect(manager.getProfilePath())
+         if "submit" in request.form:
+            if request.form["submit"] == "Go":
+               print manager.getProfilePath()
+               if manager.getProfilePath() == "profile/":
+                  print "he"
+               else:
+                  return redirect(manager.getProfilePath())
       if name == None:
          print "hello"
          groupNames=[]
@@ -152,6 +153,9 @@ def group(name=None):
                   print "ldlddlld"
                   requestedMember=request.form["member"]
                   manager.addMember(requestedMember,name)
+            elif "sendmessage" in request.form:
+               mess = request.form["message"]
+               manager.sendMessage(name,username,mess)
             else:
                print "BLAH"
                for rmem in members:
