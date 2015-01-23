@@ -209,7 +209,10 @@ def getAdmin(name):
     members = c.fetchall()
     for x in members:
         if x[1]=="admin":
+            a = x[0]
+            conn.close()
             return x[0]
+    conn.close()
     return "None"
 
 def removeMember(username,name):
@@ -229,3 +232,13 @@ def sendMessage(groupname,username, message):
     cursor.execute(initial)
     conn.commit()
     conn.close()
+
+def getChat(groupname):
+    conn = sqlite3.connect("chat.db")
+    cursor = conn.cursor()
+    command = "SELECT * FROM '"+groupname+"'"
+    cursor.execute(command)
+    tabledata=cursor.fetchall()
+    chat=tabledata
+    conn.close()
+    return chat

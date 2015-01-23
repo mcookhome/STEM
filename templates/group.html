@@ -36,7 +36,9 @@
     <input class="button-xsmall pure-button" name="sendmessage" type="submit"  value="Send">
   </form>
 <br><br><hr>
-THIS IS WHERE THE CHAT SHOULD BE FOR NOW
+{% for n in chatlog %}
+<b>{{n[1]}}</b> ({{n[3]}}): {{n[2]}} <br>
+{% endfor %}
 <hr>
 {% endif %}
 

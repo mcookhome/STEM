@@ -170,7 +170,8 @@ def group(name=None):
          possible=manager.getPossible(name)
          print ids
          print possible
-         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible)
+         chat = manager.getChat(name)
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat)
 
 @app.route("/login",methods=['GET','POST'])
 def login():
@@ -358,5 +359,5 @@ def edit():
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "STEM"
-    app.run(host='0.0.0.0')
+    app.run()
     
