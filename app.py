@@ -156,6 +156,11 @@ def group(name=None):
             elif "sendmessage" in request.form:
                mess = request.form["message"]
                manager.sendMessage(name,username,mess)
+            elif "addtask" in request.form:
+               taskname=request.form["taskname"]
+               desc=request.form["description"]
+               ddate=request.form["year"]+"-"+request.form["month"]+"-"+request.form["date"]
+               manager.addTask(name,username,taskname,desc,ddate)
             else:
                print "BLAH"
                for rmem in members:
@@ -171,7 +176,8 @@ def group(name=None):
          print ids
          print possible
          chat = manager.getChat(name)
-         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat)
+         tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks)
 
 @app.route("/login",methods=['GET','POST'])
 def login():
