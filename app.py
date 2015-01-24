@@ -45,7 +45,7 @@ def profile(user=None):
                print "he"
             else:
                return redirect(manager.getProfilePath())
-         elif request.form["submit"] == "Send":
+         elif request.form["submit"] == "Dual Contact":
             print "haha"
             message = request.form['message']
             userexists = False
