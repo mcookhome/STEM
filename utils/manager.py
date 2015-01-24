@@ -116,6 +116,20 @@ def makeGroup(groupname,maker):
     cursor.execute(initial)
     conn.commit()
     conn.close()
+    conn = sqlite3.connect("tasks.db")
+    cursor = conn.cursor()
+    command = "CREATE TABLE IF NOT EXISTS '" + groupname+"' (id integer primary key, user text, name text, description text, duedate text)"
+    cursor.execute(command)
+    conn.commit()
+    conn.close()
+
+def addTask(group,username,name,description,duedate):
+    conn=sqlite3.connect("tasks.db")
+    cursor = conn.cursor()
+    initial = "INSERT INTO '"+ group+ "'(user,name,description,duedate) VALUES ('"+username+"','"+name+"','"+ description+"','"+duedate+"')"
+    cursor.execute(initial)
+    conn.commit()
+    conn.close()
 
 
 def getItem(table,ovalue,oindex,rindex):
@@ -153,7 +167,6 @@ def getFacebook(n):
 def getDefaultPath(n):
     fid=""
     rfacebook=getFacebook(n)[::-1]
-    print rfacebook
     for n in rfacebook:
         if (n == "/"):
             break
@@ -238,7 +251,24 @@ def getChat(groupname):
     cursor = conn.cursor()
     command = "SELECT * FROM '"+groupname+"'"
     cursor.execute(command)
-    tabledata=cursor.fetchall()
-    chat=tabledata
+    chat=cursor.fetchall()
     conn.close()
     return chat
+
+def getTasks(groupname):
+    conn = sqlite3.connect("tasks.db")
+    cursor = conn.cursor()
+    command = "SELECT * FROM '"+groupname+"'"
+    cursor.execute(command)
+    tasks=cursor.fetchall()
+    conn.close()
+    return tasks
+
+def removeTask(groupname,taskname):
+    conn = sqlite3.connect("tasks.db")
+    cursor = conn.cursor()
+    remTask = "DELETE FROM '"+ groupname + "' WHERE name='"+taskname+"'"
+    print remTask
+    cursor.execute(remTask)
+    conn.commit()
+    conn.close()
