@@ -167,7 +167,6 @@ def getFacebook(n):
 def getDefaultPath(n):
     fid=""
     rfacebook=getFacebook(n)[::-1]
-    print rfacebook
     for n in rfacebook:
         if (n == "/"):
             break
@@ -264,3 +263,12 @@ def getTasks(groupname):
     tasks=cursor.fetchall()
     conn.close()
     return tasks
+
+def removeTask(groupname,taskname):
+    conn = sqlite3.connect("tasks.db")
+    cursor = conn.cursor()
+    remTask = "DELETE FROM '"+ groupname + "' WHERE name='"+taskname+"'"
+    print remTask
+    cursor.execute(remTask)
+    conn.commit()
+    conn.close()

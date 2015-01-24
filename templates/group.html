@@ -45,12 +45,14 @@
 </font>
 </div>
 <br><br>
+<form class="pure-form" method="post">
 <table border="4" bgcolor="white">
 <tr>
   <th>Task</th>
   <th>Description</th>
   <th>Due Date</th>
   <th>Added By</th>
+  <th>Delete</th>
 </tr>
 {% for n in tasklist %}
 <tr>
@@ -58,10 +60,14 @@
   <td>&nbsp{{n[3]}}&nbsp</td>
   <td>&nbsp{{n[4]}}&nbsp</td>
   <td>&nbsp{{n[1]}}&nbsp</td>
+  <td><center><input class="button-xsmall pure-button" name="{{n[2]}}" type="submit"  value="Remove">
+</center></td>
 </tr>
 {% endfor %}
 </table>
-<br><br>
+<br>
+</form>
+<br>
 {% endif %}
 
   <form class="pure-form" method="post">

@@ -145,6 +145,7 @@ def group(name=None):
                groupNames.append(n)
          return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name) 
       else:
+         tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
          if request.method=='POST':
             print "POST"
             members=manager.getMembers(name)
@@ -162,6 +163,13 @@ def group(name=None):
                ddate=request.form["year"]+"-"+request.form["month"]+"-"+request.form["date"]
                manager.addTask(name,username,taskname,desc,ddate)
             else:
+               for x in request.form:
+                  print x
+                  for task in tasks:
+                     if task[2]==x:
+                        print "removing task"
+                        manager.removeTask(name,x)
+                        return redirect("/group/"+name)
                print "BLAH"
                for rmem in members:
                   print "HAH"
@@ -176,7 +184,6 @@ def group(name=None):
          print ids
          print possible
          chat = manager.getChat(name)
-         tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
          return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks)
 
 @app.route("/login",methods=['GET','POST'])
