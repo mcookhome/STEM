@@ -24,7 +24,7 @@
              {% endfor %}
              {% if username == admin %}
                     <br><br>
-                     <form class="pure-form" method="post">
+                     <form class="pure-form" action="" method="post">
 	             <input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
                     <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
                     </form>
@@ -34,10 +34,21 @@
                       $( "input.suggest-member" ).autocomplete({
                       source: availableTags
                       });
-                      });
-                      </script>
-            {% endif %}
-	    {% if username in members %}
+		      });
+                    </script>
+		    {% endif %}
+		    <!--script for auto refreshing page-->
+		    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		    <script>
+		      $(document).ready(
+		      function(){
+		      setInterval(function(){
+		      $("#chatbox").load(window.location.href + "#chatbox");,1000
+		      });
+		      });
+		    </script>
+		    
+		    {% if username in members %}
 		    <br><br>
 		    <div class="chatbox" id="chatbox">
 		      <font color="black">
@@ -48,17 +59,9 @@
 		      
 		      </font>
 		    </div>
-		    <script>
-		      $("#sendmessage").click(function(){
-		      var clientmessage = $("#usermes").val();
-		      $.post("post.php",{text:message});
-		      $("usermessage").attr("value","");
-		      return false;
-		      });
-		    </script>
 		    <form class="pure-form" action="" method="post">
                       Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
-		      <input class="button-xsmall pure-button" name="sendmessage" id="sendmessage" type="submit"  value="Send">
+		      <input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
 		      <br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font>
 		    </form>
 		    <br><br>

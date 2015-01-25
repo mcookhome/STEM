@@ -7,7 +7,7 @@ from datetime import datetime
 
 def getIDs():
     ids=[]
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect("databases/users.db")
     c = conn.cursor()
     c.execute("select * from uinfo")
     tabledata = c.fetchall()
@@ -71,7 +71,7 @@ def sendTextTwilio():#too much money :(
     )
 
 def getTables():
-    conn = sqlite3.connect('group.db')
+    conn = sqlite3.connect('databases/group.db')
 
     with conn:
     
@@ -101,7 +101,7 @@ def makeGroup(groupname,maker):
     if groupname == "":
         print "need a name"
         return
-    conn = sqlite3.connect('group.db')
+    conn = sqlite3.connect('databases/group.db')
     cursor = conn.cursor()
     command= "CREATE TABLE '" + groupname+"' (member text, powers text)"
     # Create table
@@ -116,7 +116,7 @@ def makeGroup(groupname,maker):
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
-    conn = sqlite3.connect("chat.db")
+    conn = sqlite3.connect("databases/chat.db")
     cursor = conn.cursor()
     command = "CREATE TABLE IF NOT EXISTS '" + groupname+"' (id integer primary key, user text, message text,  time text)"
     cursor.execute(command)
@@ -125,7 +125,7 @@ def makeGroup(groupname,maker):
     cursor.execute(initial)
     conn.commit()
     conn.close()
-    conn = sqlite3.connect("tasks.db")
+    conn = sqlite3.connect("databases/tasks.db")
     cursor = conn.cursor()
     command = "CREATE TABLE IF NOT EXISTS '" + groupname+"' (id integer primary key, user text, name text, description text, duedate text)"
     cursor.execute(command)
@@ -133,7 +133,7 @@ def makeGroup(groupname,maker):
     conn.close()
 
 def addTask(group,username,name,description,duedate):
-    conn=sqlite3.connect("tasks.db")
+    conn=sqlite3.connect("databases/tasks.db")
     cursor = conn.cursor()
     initial = "INSERT INTO '"+ group+ "'(user,name,description,duedate) VALUES ('"+username+"','"+name+"','"+ description+"','"+duedate+"')"
     cursor.execute(initial)
@@ -142,7 +142,7 @@ def addTask(group,username,name,description,duedate):
 
 
 def getItem(table,ovalue,oindex,rindex):
-    conn = sqlite3.connect("users.db")
+    conn = sqlite3.connect("databases/users.db")
     c = conn.cursor()
     command = "select * from '" + table +"'"
     c.execute(command)
@@ -184,7 +184,7 @@ def getDefaultPath(n):
     return fid
 
 def getMembers(group):
-    conn = sqlite3.connect('group.db')
+    conn = sqlite3.connect('databases/group.db')
     
     with conn:
         
@@ -212,7 +212,7 @@ def addMember(username,name):
     if username not in getIDs():
         print "not a user"
         return
-    conn = sqlite3.connect('group.db')
+    conn = sqlite3.connect('databases/group.db')
     cursor = conn.cursor()
     # Insert a row of data
     addMember= "INSERT INTO '"+ name+ "' VALUES ('"+username+"', 'member')"
@@ -225,7 +225,7 @@ def addMember(username,name):
     conn.close()
 
 def getAdmin(name):
-    conn = sqlite3.connect("group.db")
+    conn = sqlite3.connect("databases/group.db")
     c = conn.cursor()
     c.execute("select * from '"+name+"'")
     members = c.fetchall()
@@ -238,7 +238,7 @@ def getAdmin(name):
     return "None"
 
 def removeMember(username,name):
-    conn = sqlite3.connect('group.db')
+    conn = sqlite3.connect('databases/group.db')
     cursor = conn.cursor()
     remMember = "DELETE FROM '"+ name + "' WHERE member='"+username+"'"
     print remMember
@@ -247,7 +247,7 @@ def removeMember(username,name):
     conn.close()
 
 def sendMessage(groupname,username, message):
-    conn = sqlite3.connect("chat.db")
+    conn = sqlite3.connect("databases/chat.db")
     cursor = conn.cursor()
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     initial = "INSERT INTO '"+ groupname+ "'(user,message,time) VALUES ('"+username+"','"+message+"','"+time+"')"
@@ -256,7 +256,7 @@ def sendMessage(groupname,username, message):
     conn.close()
 
 def getChat(groupname):
-    conn = sqlite3.connect("chat.db")
+    conn = sqlite3.connect("databases/chat.db")
     cursor = conn.cursor()
     command = "SELECT * FROM '"+groupname+"'"
     cursor.execute(command)
@@ -265,7 +265,7 @@ def getChat(groupname):
     return chat
 
 def getTasks(groupname):
-    conn = sqlite3.connect("tasks.db")
+    conn = sqlite3.connect("databases/tasks.db")
     cursor = conn.cursor()
     command = "SELECT * FROM '"+groupname+"'"
     cursor.execute(command)
@@ -274,7 +274,7 @@ def getTasks(groupname):
     return tasks
 
 def removeTask(groupname,taskname):
-    conn = sqlite3.connect("tasks.db")
+    conn = sqlite3.connect("databases/tasks.db")
     cursor = conn.cursor()
     remTask = "DELETE FROM '"+ groupname + "' WHERE name='"+taskname+"'"
     print remTask
