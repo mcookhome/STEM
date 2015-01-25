@@ -24,38 +24,51 @@
              {% endfor %}
              {% if username == admin %}
                     <br><br>
-                     <form class="pure-form" method="post">
+                     <form class="pure-form" action="" method="post">
 	             <input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
                     <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
                     </form>
                     <script>
-                      $(function() {
+                      $(function(){
                       var availableTags = {{possible | safe}};
                       $( "input.suggest-member" ).autocomplete({
                       source: availableTags
                       });
-                      });
-                      </script>
-            {% endif %}
-	    {% if username in members %}
+		      });
+                    </script>
+		    {% endif %}
+		    <!--script for auto refreshing page-->
+		    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		    <script>
+		      $(document).ready(
+		      function(){
+		      setInterval(function(){
+		      $("#chatbox").load(window.location.href + "#chatbox");,1000
+		      });
+		      });
+		    </script>
+		    {% if username in members %}
 		    <br><br>
 		    <form class="pure-form" method="post">
 		      <input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
 		    </form>
 	            <br><br>
-		    <form class="pure-form" method="post">
-                      Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
-		      <input class="button-xsmall pure-button" name="sendmessage" type="submit"  value="Send">
-		    </form>
-		    <br><br>
-		    <div class="chatbox">
+		    <div class="chatbox" id="chatbox">
 		      <font color="black">
+			
 			{% for n in chatlog %}
 			<b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
-			
 			{% endfor %}
+		      
 		      </font>
 		    </div>
+		    <form class="pure-form" action="" method="post">
+                      Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
+		      <input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
+		      <br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font>
+		    </form>
+		    <br><br>
+		    
 		    <br><br>
 		    <form class="pure-form" method="post">
 		      <table border="4" bgcolor="white">
