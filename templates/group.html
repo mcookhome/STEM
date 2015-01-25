@@ -39,19 +39,30 @@
             {% endif %}
 	    {% if username in members %}
 		    <br><br>
-		    <form class="pure-form" method="post">
-                      Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
-		      <input class="button-xsmall pure-button" name="sendmessage" type="submit"  value="Send">
-		    </form>
-		    <br><br>
-		    <div class="chatbox">
+		    <div class="chatbox" id="chatbox">
 		      <font color="black">
+			
 			{% for n in chatlog %}
 			<b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
-			
 			{% endfor %}
+		      
 		      </font>
 		    </div>
+		    <script>
+		      $("#sendmessage").click(function(){
+		      var clientmessage = $("#usermes").val();
+		      $.post("post.php",{text:message});
+		      $("usermessage").attr("value","");
+		      return false;
+		      });
+		    </script>
+		    <form class="pure-form" action="" method="post">
+                      Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
+		      <input class="button-xsmall pure-button" name="sendmessage" id="sendmessage" type="submit"  value="Send">
+		      <br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font>
+		    </form>
+		    <br><br>
+		    
 		    <br><br>
 		    <form class="pure-form" method="post">
 		      <table border="4" bgcolor="white">
