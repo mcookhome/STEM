@@ -148,6 +148,7 @@ def group(name=None):
             groupNames.append(n)
          return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name) 
       else:
+         admin = manager.getAdmin(name)
          tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
          if request.method=='POST':
             print "POST"
@@ -157,6 +158,12 @@ def group(name=None):
                   print "ldlddlld"
                   requestedMember=request.form["member"]
                   manager.addMember(requestedMember,name)
+               if request.form["submit"] == "Leave":
+                  if username == admin:
+                     manager.disbandGroup(name)
+                     return redirect("/group")
+                  else:
+                     manager.removeMember(username,name)
             elif "sendmessage" in request.form:
                mess = request.form["message"]
                manager.sendMessage(name,username,mess)
@@ -181,7 +188,6 @@ def group(name=None):
                      print "REMOVING"
                      manager.removeMember(rmem,name)
          members=manager.getMembers(name)
-         admin = manager.getAdmin(name)
          fmembers= manager.getMemberFacebook(name)
          print members
          possible=manager.getPossible(name)

@@ -140,6 +140,24 @@ def addTask(group,username,name,description,duedate):
     conn.commit()
     conn.close()
 
+def disbandGroup(groupname):
+    removetable = "DROP TABLE '"+groupname+"'"
+    conn=sqlite3.connect("databases/group.db")
+    cursor=conn.cursor()
+    cursor.execute(removetable)
+    conn.commit()
+    conn.close()
+    conn=sqlite3.connect("databases/tasks.db")
+    cursor=conn.cursor()
+    cursor.execute(removetable)
+    conn.commit()
+    conn.close()
+    conn=sqlite3.connect("databases/chat.db")
+    cursor=conn.cursor()
+    cursor.execute(removetable)
+    conn.commit()
+    conn.close()
+    
 
 def getItem(table,ovalue,oindex,rindex):
     conn = sqlite3.connect("databases/users.db")
