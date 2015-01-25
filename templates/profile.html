@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block text %}
+ 
+{% if loggedin == True %}
+
+{% if userexists == True %}
+<img src="//graph.facebook.com/{{fid}}/picture?type=large"><br>
+<b><u>First Name:</u></b> &nbsp {{first}} <br>
+<b><u>Last Name:</u></b> &nbsp{{last}} <br>
+<b><u>Email Address:</u></b> &nbsp{{email}} <br>
+<b><u>Phone Number:</u></b> &nbsp{{phone}} <br>
+<b><u>Facebook Username:</u></b> 
+{% if facebook!="" %} &nbsp{{facebook}} {% endif %}
+{% if facebook=="" %} &nbsp No Username Saved {% endif %} <br>      
+<br>
+{% if isityou == True %}
+<font size = 2>
+<a class="pure-button" href="/edit" type="submit"> Edit Profile </a>
+<br><br> </font>
+{% endif %}
+  <form class="pure-form" method="post">
+    Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
+    <input class="button-xsmall pure-button red" name="submit" type="submit"  value="Dual Contact" /*onclick="facebookPop()"*/>
+  </form>
+ 
+{% endif %}
+
+{% if userexists == False %}
+<br><br>
+<h3> I'm sorry, but the username '{{user}}' does not exist. </h3>
+{% endif %}
+
+{% endif %}
+
+
+{% if loggedin == False %}
+<h3> Login to your account to access profiles! </h3>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block text %}
+	{% if loggedin == True %}
+	You are already logged in
+	<br><br>
+	<a class="pure-button" href="/logout" type = "submit"> Logout </a>
+	{% endif %}
+
+	{% if page==2 or page==3 and loggedin==False %}
+	<script>
+	  $( "#fb" ).tooltip({ content: "<img src='../static/demo.png'" });
+								       </script>
+	<center>
+	<div class="turq">
+	  <h2>Register</h2>
+	  <font color="red"><b>{{reason}}</b></font>
+	  <form action="register" method="post">
+	    Username:  <input required type="text" name="username"></input>
+	    <br>
+	    Password:&nbsp <input required type="password" name="password"></input>
+	    <br>
+	    Retype Password: <input required type="password" name="password2">
+	    <br>
+	    <br>
+	    First Name: <input required type="text" name="first"></input><br>
+	    Last Name: <input required type="text" name="last"></input><br><br>
+	    E-mail Address: <input required type="email" name="email"></input><br>
+	    Confirm Email: <input required type="email" name="email2"></input><br>
+	    Phone Number: <input required type="number" pattern=".{10,10}" name="phone"></input><br>
+	    Facebook username: <input type="text" name="facebook" id="fb"></input><br>
+	    {% if page == 2%}
+	    
+	    {% endif %}
+	    <div>
+	      <style scoped>
+		
+		.button-small {
+		font-size: 85%;
+		}
+	      </style> <br>
+	      <button class="button-small pure-button" type="submit">Register</button>
+	    </div>
+	  </form>
+
+      </div>
+    </div>
+</center>
+    {% endif %}
+
+    {% if page==1 %}
+    You have successfully registered!
+    {% endif %}
+{% endblock %}
