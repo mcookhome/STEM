@@ -3,72 +3,80 @@
 {% block text %}
  
 {% if loggedin == True %}
-{% if name == None %}
-{% for x in groupNames %}
-<a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
-{% endfor %}
-{% else %}
-{{name}}
-<br>
-{% for fmember in fmembers %}
-<img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
- {% if members[loop.index-1] == admin %} &nbsp<font size ="1"> <b>ADMIN</font></b> {% endif %}
- {% if username == admin %} {% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>{% endif %}{% endif %}<br>
-{% endfor %}
-{% if username == admin %}
-      <br><br><form class="pure-form" method="post">
-	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
-<li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
-  </form>
-  <script>
-  $(function() {
-    var availableTags = {{possible | safe}};
-    $( "input.suggest-member" ).autocomplete({
-      source: availableTags
-    });
-  });
-  </script>
-{% endif %}
+     {% if name == None %}
+             {% for x in groupNames %}
+                 <a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
+             {% endfor %}
+     {% else %}
+             {{name}}
+             <br>
+             {% for fmember in fmembers %}
+                   <img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
+                    {% if members[loop.index-1] == admin %} 
+                              &nbsp<font size ="1"> <b>ADMIN</font></b> 
+                    {% endif %}
+		   
+                    {% if username == admin %} 
+                              {% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
+                              {% endif %}
+                    {% endif %}
+                    <br>
+             {% endfor %}
+             {% if username == admin %}
+                    <br><br>
+                     <form class="pure-form" method="post">
+	             <input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
+                    <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
+                    </form>
+                    <script>
+                      $(function() {
+                      var availableTags = {{possible | safe}};
+                      $( "input.suggest-member" ).autocomplete({
+                      source: availableTags
+                      });
+                      });
+                      </script>
+            {% endif %}
+	    {% if username in members %}
+		    <br><br>
+		    <form class="pure-form" method="post">
+                      Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
+		      <input class="button-xsmall pure-button" name="sendmessage" type="submit"  value="Send">
+		    </form>
+		    <br><br>
+		    <div class="chatbox">
+		      <font color="black">
+			{% for n in chatlog %}
+			<b>{{n[1]}}</b> ({{n[3]}}): {{n[2]}} <br>
+			
+			{% endfor %}
+		      </font>
+		    </div>
+		    <br><br>
+		    <form class="pure-form" method="post">
+		      <table border="4" bgcolor="white">
+			<tr>
+			  <th>Task</th>
+			  <th>Description</th>
+			  <th>Due Date</th>
+			  <th>Added By</th>
+			  <th>Delete</th>
+			</tr>
+			{% for n in tasklist %}
+			<tr>
+			  <td>&nbsp{{n[2]}}&nbsp</td>
+			  <td>&nbsp{{n[3]}}&nbsp</td>
+			  <td>&nbsp{{n[4]}}&nbsp</td>
+			  <td>&nbsp{{n[1]}}&nbsp</td>
+			  <td><center><input class="button-xsmall pure-button red" name="{{n[2]}}" type="submit"  value="Remove">
+			  </center></td>
+			</tr>
+			{% endfor %}
+		      </table>
+		      <br>
+		    </form>
+		    <br>
 
-<br><br>
-  <form class="pure-form" method="post">
-    Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
-    <input class="button-xsmall pure-button" name="sendmessage" type="submit"  value="Send">
-  </form>
-<br><br>
-<div class="chatbox">
-<font color="black">
-{% for n in chatlog %}
-<b>{{n[1]}}</b> ({{n[3]}}): {{n[2]}} <br>
-
-{% endfor %}
-</font>
-</div>
-<br><br>
-<form class="pure-form" method="post">
-<table border="4" bgcolor="white">
-<tr>
-  <th>Task</th>
-  <th>Description</th>
-  <th>Due Date</th>
-  <th>Added By</th>
-  <th>Delete</th>
-</tr>
-{% for n in tasklist %}
-<tr>
-  <td>&nbsp{{n[2]}}&nbsp</td>
-  <td>&nbsp{{n[3]}}&nbsp</td>
-  <td>&nbsp{{n[4]}}&nbsp</td>
-  <td>&nbsp{{n[1]}}&nbsp</td>
-  <td><center><input class="button-xsmall pure-button red" name="{{n[2]}}" type="submit"  value="Remove">
-</center></td>
-</tr>
-{% endfor %}
-</table>
-<br>
-</form>
-<br>
-{% endif %}
 
   <form class="pure-form" method="post">
     Task Name: <input required name="taskname" type="text"><br>
@@ -136,7 +144,11 @@
     <br>
     <input class="button-xsmall pure-button" name="addtask" type="submit"  value="Add Task">
   </form>
+                            {% else %}
+                            <b> You are not in this group </b>
 
+              		    {% endif %}
+                {% endif %}
 {% endif %}
 
 {% endblock %}

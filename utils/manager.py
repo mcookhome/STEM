@@ -7,7 +7,7 @@ from datetime import datetime
 
 def getIDs():
     ids=[]
-    conn = sqlite3.connect("stem.db")
+    conn = sqlite3.connect("users.db")
     c = conn.cursor()
     c.execute("select * from uinfo")
     tabledata = c.fetchall()
@@ -71,7 +71,7 @@ def sendTextTwilio():#too much money :(
     )
 
 def getTables():
-    conn = sqlite3.connect('stem.db')
+    conn = sqlite3.connect('group.db')
 
     with conn:
     
@@ -92,7 +92,7 @@ def makeGroup(groupname,maker):
     if groupname == "":
         print "need a name"
         return
-    conn = sqlite3.connect('stem.db')
+    conn = sqlite3.connect('group.db')
     cursor = conn.cursor()
     command= "CREATE TABLE '" + groupname+"' (member text, powers text)"
     # Create table
@@ -133,7 +133,7 @@ def addTask(group,username,name,description,duedate):
 
 
 def getItem(table,ovalue,oindex,rindex):
-    conn = sqlite3.connect("stem.db")
+    conn = sqlite3.connect("users.db")
     c = conn.cursor()
     command = "select * from '" + table +"'"
     c.execute(command)
@@ -175,7 +175,7 @@ def getDefaultPath(n):
     return fid
 
 def getMembers(group):
-    conn = sqlite3.connect('stem.db')
+    conn = sqlite3.connect('group.db')
     
     with conn:
         
@@ -203,7 +203,7 @@ def addMember(username,name):
     if username not in getIDs():
         print "not a user"
         return
-    conn = sqlite3.connect('stem.db')
+    conn = sqlite3.connect('group.db')
     cursor = conn.cursor()
     # Insert a row of data
     addMember= "INSERT INTO '"+ name+ "' VALUES ('"+username+"', 'member')"
@@ -216,7 +216,7 @@ def addMember(username,name):
     conn.close()
 
 def getAdmin(name):
-    conn = sqlite3.connect("stem.db")
+    conn = sqlite3.connect("group.db")
     c = conn.cursor()
     c.execute("select * from '"+name+"'")
     members = c.fetchall()
@@ -229,7 +229,7 @@ def getAdmin(name):
     return "None"
 
 def removeMember(username,name):
-    conn = sqlite3.connect('stem.db')
+    conn = sqlite3.connect('group.db')
     cursor = conn.cursor()
     remMember = "DELETE FROM '"+ name + "' WHERE member='"+username+"'"
     print remMember
