@@ -29,7 +29,7 @@
                     <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
                     </form>
                     <script>
-                      $(function() {
+                      $(function(){
                       var availableTags = {{possible | safe}};
                       $( "input.suggest-member" ).autocomplete({
                       source: availableTags
@@ -47,12 +47,7 @@
 		      });
 		      });
 		    </script>
-		    
 		    {% if username in members %}
-                    });
-                      </script>
-            {% endif %}
-	    {% if username in members %}
 		    <br><br>
 		    <form class="pure-form" method="post">
 		      <input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
