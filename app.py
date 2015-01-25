@@ -69,7 +69,7 @@ def profile(user=None):
          else:
             print "nada"
       loggedin=True
-      conn = sqlite3.connect("users.db")
+      conn = sqlite3.connect("databases/users.db")
       c = conn.cursor()
 
       c.execute("select * from uinfo")
@@ -213,7 +213,7 @@ def login():
       loggedin = False
       reason = ""
       
-      conn = sqlite3.connect("users.db")
+      conn = sqlite3.connect("databases/users.db")
       c = conn.cursor()
 
       c.execute("select * from uinfo")
@@ -303,7 +303,7 @@ def register():
             reason = "Emails do not match"
             print "Emails do not match"
 
-      conn = sqlite3.connect("users.db")
+      conn = sqlite3.connect("databases/users.db")
       c = conn.cursor()
 
       c.execute("select * from uinfo")
@@ -333,7 +333,7 @@ def register():
 @app.route("/edit",methods=['GET','POST'])
 def edit():
    ids= manager.getIDs()
-   conn = sqlite3.connect("users.db")
+   conn = sqlite3.connect("databases/users.db")
    c = conn.cursor()
   
    if 'username' in session:
