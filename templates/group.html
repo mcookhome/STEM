@@ -34,6 +34,7 @@
                       $( "input.suggest-member" ).autocomplete({
                       source: availableTags
                       });
+<<<<<<< HEAD
 		      });
                     </script>
 		    {% endif %}
@@ -49,6 +50,21 @@
 		    </script>
 		    
 		    {% if username in members %}
+=======
+                      });
+                      </script>
+            {% endif %}
+	    {% if username in members %}
+		    <br><br>
+		    <form class="pure-form" method="post">
+		      <input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
+		    </form>
+	            <br><br>
+		    <form class="pure-form" method="post">
+                      Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
+		      <input class="button-xsmall pure-button" name="sendmessage" type="submit"  value="Send">
+		    </form>
+>>>>>>> bc1345a4913933cd7ec2aaacfb70ab0bfb0ff42a
 		    <br><br>
 		    <div class="chatbox" id="chatbox">
 		      <font color="black">
