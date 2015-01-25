@@ -162,6 +162,7 @@ def group(name=None):
                desc=request.form["description"]
                ddate=request.form["year"]+"-"+request.form["month"]+"-"+request.form["date"]
                manager.addTask(name,username,taskname,desc,ddate)
+               return redirect("/group/"+name)
             else:
                for x in request.form:
                   print x
