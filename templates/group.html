@@ -47,7 +47,7 @@
 		    <div class="chatbox">
 		      <font color="black">
 			{% for n in chatlog %}
-			<b>{{n[1]}}</b> ({{n[3]}}): {{n[2]}} <br>
+			<b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
 			
 			{% endfor %}
 		      </font>
