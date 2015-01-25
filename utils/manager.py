@@ -83,6 +83,15 @@ def getTables():
         rows[:]=[unicodedata.normalize('NFKD',o).encode('ascii','ignore') for o in rows]
         return rows
 
+def getUserGroups(username):
+	groups = getTables();
+	groupNames = [];
+	for x in groups:
+		if username in getMembers(x):
+			groupNames.append(x);
+	print groupNames;
+	return groupNames;
+
 
 
 def makeGroup(groupname,maker):

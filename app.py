@@ -38,6 +38,10 @@ def profile(user=None):
    ids= manager.getIDs()
    if 'username' in session:
       username=session['username']
+
+      userGroups = manager.getUserGroups(user);
+      print userGroups;
+
       if request.method=='POST':
          if request.form["submit"] == "Go":
             print manager.getProfilePath()
@@ -84,16 +88,16 @@ def profile(user=None):
       conn.close()
         
       if userexists == False:
-         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids);
+         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids, userGroups=userGroups);
       fid=manager.getDefaultPath(user)
       isityou = False
       if user==username:
          isityou=True
-      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids)
+      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids, userGroups=userGroups)
    else:
-      loggedin=False
-      username = '-'
-      return render_template("profile.html", loggedin=loggedin, username=username,ids=ids)
+	  loggedin=False
+	  username = '-'
+	  return render_template("profile.html", loggedin=loggedin, username=username,ids=ids, userGroups=userGroups)
 
 
 @app.route("/create",methods=['GET', 'POST'])

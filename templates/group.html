@@ -78,9 +78,10 @@
 		    <br>
 
 
-  <form class="pure-form" method="post">
+  <form name="newtask" class="pure-form" method="post">
     Task Name: <input required name="taskname" type="text"><br>
     Description: <textarea rows="5" cols="50" wrap="physical" name="description" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br>
+
     Due Date: <select name="month">
       <option value="01">January</option>
       <option value="02">February</option>
@@ -144,6 +145,19 @@
     <br>
     <input class="button-xsmall pure-button" name="addtask" type="submit"  value="Add Task">
   </form>
+
+  <script>
+  	window.onload = init;
+    var current = new Date();
+  	function init(){
+  		document.newtask.month.options[current.getMonth()].selected = true;
+  		document.newtask.date.options[current.getDate()].selected = true;
+  		document.newtask.year.options[current.getYear()].selected = true;
+  	}
+  </script>
+
+
+
                             {% else %}
                             <b> You are not in this group </b>
 
