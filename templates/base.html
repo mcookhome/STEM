@@ -20,7 +20,6 @@
           });
       }
      </script>
-
     <style>
       .home-menu {
       padding: 0.5em;
@@ -29,6 +28,9 @@
       }
       .turq  {
       color:turquoise;
+      }
+      .sleek {
+      display:inline;
       }
       .home-menu.pure-menu-open {
       background: turquoise;
@@ -70,6 +72,39 @@ a:link {
 a:visited {
     color: #ff0100;
 }
+
+/*--- DROPDOWN ---*/
+#nav ul{
+	background:#fff; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
+	background:rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
+	list-style:none;
+	position:absolute;
+	left:-9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
+}
+#nav ul li{
+	padding-top:1px; /* Introducing a padding between the li and the a give the illusion spaced items */
+	float:none;
+}
+#nav ul a{
+	white-space:nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+}
+#nav li:hover ul{ /* Display the dropdown on hover */
+      top:36px;
+      left:0; /* Bring back on-screen when needed */
+      visibility:visible;
+}
+#nav li:hover a{ /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
+	background:#40e0d0;
+	text-decoration:underline;
+      opacity:0.9;
+}
+#nav li:hover ul a{ /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+	text-decoration:none;
+}
+#nav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+	background:#333;
+}
+
 
 
 /* Navigation Menu - Background */
@@ -216,31 +251,38 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 <label for="nav-trigger"></label>
 
 
-
-    <div class="header">
-      <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+      <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed" id="demo-horizontal-menu">
         <a class="pure-menu-heading" href="/">dllb</a>
+        <ul id="nav">
 	
-        <ul>
+	{% if loggedin %}
+	
+	<li>
+	  <form class="pure-form" method="post">
+	    <input class="pure-input-1-5 suggest-user" name="query" type="text" placeholder="Username" autocomplete="off"></li>
 
-	  {% if loggedin %}
-	  
-	    <form class="pure-form" method="post">
-	      <li>
-    <input class="pure-input-1-5 suggest-user" name="query" type="text" placeholder="Username" autocomplete="off"></li>
+	<li><input class="button-small pure-button" name="submit" type="submit"  value="Go"></form></li>
+        <li>
+	  <a href="/group">Group</a>
+	  <ul>
+	    
+	    <li><a href="#">lmao</a></li>
+	    <li><a href="#">flick</a></li>
+	  </ul>
+	 </li>
+	      
 
-	      <li><input class="button-small pure-button" name="submit" type="submit"  value="Go"></li>
-	     
+	
+	
 		
-	  <li><a href="/logout">Logout</a></li>
-	    </form>
-	  {% else %}
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
-	  {% endif %}
+	<li><a href="/logout">Logout</a></li>
+	
+	{% else %}
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+	{% endif %}
 	</ul>
       </div>
-    </div>
 
 <div class="site-wrap">
    
