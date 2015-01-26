@@ -36,7 +36,7 @@ def sendEmail(email,first,last,username,message):
         data={"from": "Mailgun Sandbox <postmaster@sandboxd754b0c61d9e423b927d1b46256add5a.mailgun.org>",
               "to": e,
               "subject": subject,
-              "text": message}) 
+              "text": """ """+message}) 
 
 
 def sendText2(number,first,last,username,message):#uses eztexting bc cheap
@@ -46,7 +46,7 @@ def sendText2(number,first,last,username,message):#uses eztexting bc cheap
     params = {'User': u,
               'Password': p,
               'PhoneNumbers': number,
-              'Message': m}
+              'Message': """ """+m}
 
 
     url = "https://app.eztexting.com/sending/messages?format=json"
@@ -70,11 +70,19 @@ def sendTextTwilio():#too much money :(
 	body="poooonn DO U SEE THIS"
     )
 
+def validateEntry(entry):
+    allowChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
+    specialChars="!#$%&*+,-./:;<=>?@\^_`|~"
+    if len(entry)<4 or len(entry)>16:
+        return "Invalid Length (4-16 characters)"
+    for x in entry:
+        if x not in allowChars and x not in specialChars:
+            return "You can't use this character. Special characters allowed: " + specialChars
+    return ""
+            
 def getTables():
     conn = sqlite3.connect('databases/group.db')
-
     with conn:
-    
         cursor = conn.cursor()    
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
     
@@ -91,8 +99,6 @@ def getUserGroups(username):
 			groupNames.append(x);
 	print groupNames;
 	return groupNames;
-
-
 
 def makeGroup(groupname,maker):
     if groupname in getTables():
@@ -267,8 +273,9 @@ def removeMember(username,name):
 def sendMessage(groupname,username, message):
     conn = sqlite3.connect("databases/chat.db")
     cursor = conn.cursor()
+    m = message.replace("'","''")
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    initial = "INSERT INTO '"+ groupname+ "'(user,message,time) VALUES ('"+username+"','"+message+"','"+time+"')"
+    initial = "INSERT INTO '"+ groupname+ "'(user,message,time) VALUES ('"+username+"','"+m+"','"+time+"')"
     cursor.execute(initial)
     conn.commit()
     conn.close()

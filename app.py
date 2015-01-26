@@ -16,9 +16,7 @@ def home():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
+            if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
          if request.form["submit"] == "Make group":
             groupName = request.form["gname"]
@@ -45,9 +43,7 @@ def profile(user=None):
       if request.method=='POST':
          if request.form["submit"] == "Go":
             print manager.getProfilePath()
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
+            if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
          elif request.form["submit"] == "Dual Contact":
             print "haha"
@@ -108,9 +104,7 @@ def createGroup():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
+            if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
          if request.form["submit"] == "Make group":
             groupName = request.form["gname"]
@@ -137,9 +131,7 @@ def group(name=None):
          if "submit" in request.form:
             if request.form["submit"] == "Go":
                print manager.getProfilePath()
-               if manager.getProfilePath() == "profile/":
-                  print "he"
-               else:
+               if manager.getProfilePath() != "profile/":
                   return redirect(manager.getProfilePath())
       if name == None:
          print "hello"
@@ -202,9 +194,7 @@ def login():
    if 'username' in session:
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
+            if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
       luser = session['username']
       return render_template("login.html", loggedin=True, username=luser,ids=ids)
@@ -270,14 +260,11 @@ def register():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
+            if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
    else:
       loggedin=False
       username=''
-
    if request.method=='POST':
       if 'username' not in session:
          username = request.form['username']
@@ -296,7 +283,12 @@ def register():
          
          reason = ""
          registered=False
-         
+
+         if email != repemail:
+            registered=False
+            reason = "Emails do not match"
+            print "Emails do not match"
+
          if password == reppassword:
             registered=True
          else:
@@ -304,34 +296,38 @@ def register():
             reason = "Passwords do not match"
             print "Passwords do not match"
 
-         if email != repemail:
-            registered=False
-            reason = "Emails do not match"
-            print "Emails do not match"
 
-      conn = sqlite3.connect("databases/users.db")
-      c = conn.cursor()
+         conn = sqlite3.connect("databases/users.db")
+         c = conn.cursor()
+         
+         c.execute("select * from uinfo")
+         tabledata = c.fetchall()
+         for d in tabledata:
+            if username == d[0]:
+               registered=False
+               reason="The username "+username+" already exists!"
+               print "Username % is already in use" %username
+         
+         pvalidate = manager.validateEntry(password)
+         if pvalidate != "":
+            reason = "Password: " + pvalidate
+            
+         uvalidate = manager.validateEntry(username)
+         if uvalidate != "":
+            reason = "Username: " + uvalidate
+         
+         if registered:
+            insinfo="insert into uinfo values ('"+username+"','"+password+"','"+first+"','"+last+"','"+phone+"','"+email+"','"+facebook+"')"
+            c.execute(insinfo)
+            conn.commit()
+            print 'Username and Password have been recorded as variables'
+         else:
+            print "Failure to register"
 
-      c.execute("select * from uinfo")
-      tabledata = c.fetchall()
-      for d in tabledata:
-         if username == d[0]:
-            registered=False
-            reason="The username "+username+" already exists!"
-            print "Username % is already in use" %username
+            conn.close()
 
-      if registered:
-         insinfo="insert into uinfo values ('"+username+"','"+password+"','"+first+"','"+last+"','"+phone+"','"+email+"','"+facebook+"')"
-         c.execute(insinfo)
-         conn.commit()
-         print 'Username and Password have been recorded as variables'
-      else:
-         print "Failure to register"
-
-      conn.close()
-
-      if registered:
-         return render_template("register.html", page=1, username=username,ids=ids)
+         if registered:
+            return render_template("register.html", page=1, username=username,ids=ids)
       return render_template("register.html", page=2, reason=reason,ids=ids)
    else:
       return render_template("register.html", page=3, loggedin=loggedin, username=username, ids=ids) 
@@ -347,9 +343,7 @@ def edit():
       username=session['username']
       if request.method=='POST':
          if request.form["submit"] == "Go":
-            if manager.getProfilePath() == "profile/":
-               print "he"
-            else:
+            if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
          if request.form["submit"] == "Update":
             first = request.form['first']
