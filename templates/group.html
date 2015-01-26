@@ -175,8 +175,8 @@
     var current = new Date();
   	function init(){
   		document.newtask.month.options[current.getMonth()].selected = true;
-  		document.newtask.date.options[current.getDate()].selected = true;
-  		document.newtask.year.options[current.getYear()].selected = true;
+  		document.newtask.date.options[current.getDate()-1].selected = true;
+  		document.newtask.year.options[current.getFullYear()-2015].selected = true;
   	}
   </script>
 
