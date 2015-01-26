@@ -35,10 +35,11 @@ Completed Features:
 * Login, Register, Profile
 * EZTexting (texting API) and MailGun (email API)
 * Minimal Facebook API usage
+* Group Making and Organizing
+* Chat/Instant Messaging
 
 Features in Progress:
-* Group Making and Organizing
+* Notifications/Request
 
 Features that Need to be Done:
-* Chat/Instant Messaging
 * Group Working APIs (GitHub, GoogleDoc) or our own versions of them.
