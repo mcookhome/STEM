@@ -38,11 +38,14 @@
                     </script>
 		    {% endif %}
 		    <!--script for auto refreshing page-->
-		    <script type="text/javascript">
+		    <script  type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		    <script>
 		      $(document).ready(
 		      function(){
 		      setInterval(function(){
-		      $("#chatbox").load(window.location.href+"#chatbox");},3000)
+		      var num = Math.floor(Math.random()*100);
+		      $("#chatbox").load(" #chatbox");
+		      },3000);
 		      });
 		    </script>
 		    {% if username in members %}
@@ -51,14 +54,14 @@
 		      <input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
 		    </form>
 	            <br><br>
-		    <div class="chatbox" id="chatbox">
-		      <font color="black">
-			{% for n in chatlog %}
-			<b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
-			{% endfor %}
-			
-		      </font>
+		    <!-- original chatbox here -->
+		    <font color='black'>
+		    <div id="chatbox" class="chatbox">
+		      {% for n in chatlog %}
+		      <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
+		      {% endfor %}
 		    </div>
+		    </font>
 		    <form class="pure-form" action="" method="post">
                       Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
 		      <input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
