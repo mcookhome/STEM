@@ -101,6 +101,7 @@ def getUserGroups(username):
 	return groupNames;
 
 def makeGroup(groupname,maker):
+    groupname = groupname.replace("'","''")
     if groupname in getTables():
         print "table already made"
         return

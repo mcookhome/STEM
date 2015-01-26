@@ -265,9 +265,9 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 	     	  <li>
 	  <a href="/group">Group</a>
 	  <ul>
-	    
-	    <li><a href="#">lmao</a></li>
-	    <li><a href="#">flick</a></li>
+	    {% for group in myGroups %}
+	    <li><a href="/group/{{group}}">{{group}}</a></li>
+	    {% endfor %}
 	  </ul>
 	 </li>
 		
@@ -299,8 +299,7 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
       {% endblock %}
 
     </font>
-<center>
-
+    <center>
 <div
   class="fb-like"
   data-share="true"
