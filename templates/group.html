@@ -44,7 +44,7 @@
 		      function(){
 		      setInterval(function(){
 		      var num = Math.floor(Math.random()*100);
-		      $("#chatbox").load(" #chatbox");
+		      $("#outer").load(" #chatbox");
 		      },3000);
 		      });
 		    </script>
@@ -63,11 +63,13 @@
 	            <br><br>
 		    <!-- original chatbox here -->
 		    <font color='black'>
-		    <div id="chatbox" class="chatbox">
-		      {% for n in chatlog %}
-		      <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
-		      {% endfor %}
-		    </div>
+		      <div id="outer" class="outer">
+			<div id="chatbox" class="chatbox">
+			  {% for n in chatlog %}
+			  <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
+			  {% endfor %}
+			</div>
+		      </div>
 		    </font>
 		    <form class="pure-form" action="" method="post">
                       Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
