@@ -315,10 +315,12 @@ def register():
          
          pvalidate = manager.validateEntry(password)
          if pvalidate != "":
+            registered=False
             reason = "Password: " + pvalidate
             
          uvalidate = manager.validateEntry(username)
          if uvalidate != "":
+            registered=False
             reason = "Username: " + uvalidate
          
          if registered:
