@@ -40,6 +40,7 @@ Completed Features:
 
 Features in Progress:
 * Notifications/Request
+* Styling
 
-Features that Need to be Done:
+Features that Will be Done if Time Permits:
 * Group Working APIs (GitHub, GoogleDoc) or our own versions of them.
