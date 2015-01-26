@@ -191,7 +191,26 @@ def group(name=None):
          print possible
          chat = manager.getChat(name)
          return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups)
-
+      return render_template("group.html",loggedin=False)
+   
+@app.route("/chat/",methods=['GET','POST'])
+@app.route("/chat/<name>",methods=['GET','POST'])
+def chat(name=None):
+   ids= manager.getIDs()
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+      myGroups=manager.getUserGroups(username)
+      if request.method=='POST':
+         if "submit" in request.form:
+            if request.form["submit"] == "Go":
+               print manager.getProfilePath()
+               if manager.getProfilePath() != "profile/":
+                  return redirect(manager.getProfilePath())
+      chat = manager.getChat(name)
+      return render_template("chat.html",loggedin=loggedin,ids=ids,chatlog=chat,name=name,username=username)
+   return render_template("chat.html",loggedin=False)
+      
 @app.route("/login",methods=['GET','POST'])
 def login():
    ids= manager.getIDs()
