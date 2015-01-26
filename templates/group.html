@@ -49,33 +49,36 @@
 		      });
 		    </script>
 		    <script>
-		      $(document).ready(
+		      /*$(document).ready(
 		      function(){
 		      $(".chatbox").animate({ scrollTop: $(document).height() }, "slow");
 		      return false;
-		      });
+		      });*/
 		     </script>
 		    {% if username in members %}
+		    
 		    <br><br>
 		    <form class="pure-form" method="post">
 		      <input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
 		    </form>
 	            <br><br>
-		    <!-- original chatbox here -->
-		    <font color='black'>
-		      <div id="outer" class="outer">
-			<div id="chatbox" class="chatbox">
-			  {% for n in chatlog %}
-			  <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
-			  {% endfor %}
-			</div>
-		      </div>
-		    </font>
-		    <form class="pure-form" action="" method="post">
+		    		    <form class="pure-form" action="" method="post">
                       Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
 		      <input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
 		      <br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font>
 		    </form>
+		    <!-- original chatbox here -->
+		    <font color='black'>
+		      <div id="outer" class="outer">
+			<div id="chatbox" class="chatbox">
+			  {% for n in chatlog|reverse %}
+			  {% if loop.index <23  %}
+					     <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
+					   {% endif %}  
+			  {% endfor %}
+			</div>
+		      </div>
+		    </font>
 		    <br><br>
 		    
 		    <br><br>
