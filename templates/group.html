@@ -24,19 +24,19 @@
              {% endfor %}
              {% if username == admin %}
                     <br><br>
+		    <script>
+                    $(function() {
+                    var availableTags = {{possible | safe}};
+                    $( "input.suggest-member" ).autocomplete({
+                    source: availableTags
+                    });
+                    });
+                    </script>
                      <form class="pure-form" action="" method="post">
 	             <input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
                     <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
                     </form>
-                    <script>
-                      $(function(){
-                      var availableTags = {{possible | safe}};
-                      $( "input.suggest-member" ).autocomplete({
-                      source: availableTags
-                      });
-		      });
-                    </script>
-		    {% endif %}
+                    {% endif %}
 		    <!--script for auto refreshing page-->
 		    <script  type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		    <script>
@@ -44,14 +44,15 @@
 		      function(){
 		      setInterval(function(){
 		      var num = Math.floor(Math.random()*100);
-		      $("#chatbox").load(" #chatbox");
+		      $("#test").load(("#chatbox").animate({scrollTop: $(document).height()}));
+		      <!--$(".test").animate({ scrollTop: $(document).height() });-->
 		      },3000);
 		      });
 		    </script>
 		    <script>
 		      $(document).ready(
 		      function(){
-		      $(".chatbox").animate({ scrollTop: $(document).height() }, "slow");
+		      $(".chatbox").animate({ scrollTop: $(document).height() });
 		      return false;
 		      });
 		     </script>
@@ -63,11 +64,13 @@
 	            <br><br>
 		    <!-- original chatbox here -->
 		    <font color='black'>
-		    <div id="chatbox" class="chatbox">
-		      {% for n in chatlog %}
-		      <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
-		      {% endfor %}
-		    </div>
+		      <div id="test" class="test">
+			<div id="chatbox" class="chatbox">
+			  {% for n in chatlog %}
+			  <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
+			  {% endfor %}
+			</div>
+		      </div>
 		    </font>
 		    <form class="pure-form" action="" method="post">
                       Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
@@ -171,13 +174,12 @@
   </form>
 
   <script>
-  	window.onload = init;
-    var current = new Date();
-  	function init(){
-  		document.newtask.month.options[current.getMonth()].selected = true;
-  		document.newtask.date.options[current.getDate()].selected = true;
-  		document.newtask.year.options[current.getYear()].selected = true;
-  	}
+  	window.onload = init();
+	function init(){
+  	document.newtask.month.options[current.getMonth()].selected = true;
+  	document.newtask.date.options[current.getDate()].selected = true;
+	document.newtask.year.options[current.getFullYear()].selected = true;
+  	};
   </script>
 
 
