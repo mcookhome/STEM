@@ -48,6 +48,13 @@
 		      },3000);
 		      });
 		    </script>
+		    <script>
+		      $(document).ready(
+		      function(){
+		      $(".chatbox").animate({ scrollTop: $(document).height() }, "slow");
+		      return false;
+		      });
+		     </script>
 		    {% if username in members %}
 		    <br><br>
 		    <form class="pure-form" method="post">
