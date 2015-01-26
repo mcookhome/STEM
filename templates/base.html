@@ -70,6 +70,12 @@ a:link {
 a:visited {
     color: #ff0100;
 }
+#test{
+  width: 20px;
+  height:auto;
+  
+}
+
 
       /*--- DROPDOWN ---*/
       #nav ul{
@@ -242,9 +248,9 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 </script>
 {% if loggedin==True %}
 <ul class="navigation">
-        <li class="nav-item"><a href="/profile/{{username}}">{{username}}</a></li>
-	<li class="nav-item"><a href="/group">Groups</a></li>
-	<li class="nav-item"><a href="/create">Create Group</a></li>
+	
+<li class="nav-item"><a href="/create"><img id="test" src="//graph.facebook.com/cornjwad/picture?">hello</a>
+
 </ul>
 
 <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -264,15 +270,17 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 
 	      <li><input class="button-small pure-button" name="submit" type="submit"  value="Go"></li>
 	     	  <li>
-	  <a href="/group">Group</a>
+	  <a href="/group">My groups</a>
 	  <ul>
 	    {% for group in myGroups %}
 	    <li><a href="/group/{{group}}">{{group}}</a></li>
 	    {% endfor %}
 	  </ul>
 	 </li>
-		
-	  <li><a href="/logout">Logout</a></li>
+	      <li><a href="/create">Create Group</a></li>
+	      <li><a href="/profile/{{username}}">{{username}}</a></li>
+	      <li><a href="/logout">Logout</a></li>
+	
 	    </form>
 
 	    

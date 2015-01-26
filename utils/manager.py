@@ -139,6 +139,16 @@ def makeGroup(groupname,maker):
     conn.commit()
     conn.close()
 
+def makeUsersNotif(username):
+    conn = sqlite3.connect('databases/notif.db')
+    cursor = conn.cursor()
+    command= "CREATE TABLE '" + username +"' (sender text,type text)"
+    # Create table
+    print command
+    cursor.execute(command)
+    # Insert a row of data
+    conn.close()
+
 def addTask(group,username,name,description,duedate):
     conn=sqlite3.connect("databases/tasks.db")
     cursor = conn.cursor()
