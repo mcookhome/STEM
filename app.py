@@ -14,6 +14,7 @@ def home():
    if 'username' in session:
       loggedin=True
       username=session['username']
+      myGroups=manager.getUserGroups(username)
       if request.method=='POST':
          if request.form["submit"] == "Go":
             if manager.getProfilePath() != "profile/":
@@ -26,18 +27,19 @@ def home():
             return redirect("group/"+groupName)
 
       print ids
+      return render_template("base.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups)
    else:
       loggedin=False
       username = '-'
-   return render_template("base.html", loggedin=loggedin, username=username,ids=ids)
+      return render_template("base.html", loggedin=loggedin, username=username,ids=ids)
 
 @app.route("/profile/<user>",methods=['GET','POST'])
 def profile(user=None):
    ids= manager.getIDs()
    if 'username' in session:
       username=session['username']
-
       userGroups = manager.getUserGroups(user);
+      myGroups=manager.getUserGroups(username)
       print userGroups;
 
       if request.method=='POST':
@@ -84,12 +86,12 @@ def profile(user=None):
       conn.close()
         
       if userexists == False:
-         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids, userGroups=userGroups);
+         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids, userGroups=userGroups,myGroups=myGroups);
       fid=manager.getDefaultPath(user)
       isityou = False
       if user==username:
          isityou=True
-      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids, userGroups=userGroups)
+      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids, userGroups=userGroups,myGroups=myGroups)
    else:
 	  loggedin=False
 	  username = '-'
@@ -102,6 +104,7 @@ def createGroup():
    if 'username' in session:
       loggedin=True
       username=session['username']
+      myGroups=manager.getUserGroups(username)
       if request.method=='POST':
          if request.form["submit"] == "Go":
             if manager.getProfilePath() != "profile/":
@@ -117,7 +120,7 @@ def createGroup():
    else:
       loggedin=False
       username = '-'
-   return render_template("create.html", loggedin=loggedin, username=username,ids=ids)
+   return render_template("create.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups)
 
 
 @app.route("/group/", methods = ['GET', 'POST'])
@@ -127,6 +130,7 @@ def group(name=None):
    if 'username' in session:
       loggedin=True
       username=session['username']
+      myGroups=manager.getUserGroups(username)
       if request.method=='POST':
          if "submit" in request.form:
             if request.form["submit"] == "Go":
@@ -138,7 +142,7 @@ def group(name=None):
          groupNames=[]
          for n in manager.getTables():
             groupNames.append(n)
-         return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name) 
+         return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name,myGroups=myGroups) 
       else:
          admin = manager.getAdmin(name)
          tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
@@ -186,7 +190,7 @@ def group(name=None):
          print ids
          print possible
          chat = manager.getChat(name)
-         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks)
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups)
 
 @app.route("/login",methods=['GET','POST'])
 def login():
@@ -197,7 +201,8 @@ def login():
             if manager.getProfilePath() != "profile/":
                return redirect(manager.getProfilePath())
       luser = session['username']
-      return render_template("login.html", loggedin=True, username=luser,ids=ids)
+      myGroups=manager.getUserGroups(luser)
+      return render_template("login.html", loggedin=True, username=luser,ids=ids,myGroups=myGroups)
 
    if request.method=='POST':
       
@@ -330,7 +335,8 @@ def register():
             return render_template("register.html", page=1, username=username,ids=ids)
       return render_template("register.html", page=2, reason=reason,ids=ids)
    else:
-      return render_template("register.html", page=3, loggedin=loggedin, username=username, ids=ids) 
+      myGroups=manager.getUserGroups(username)
+      return render_template("register.html", page=3, loggedin=loggedin, username=username, ids=ids,myGroups=myGroups) 
 
 @app.route("/edit",methods=['GET','POST'])
 def edit():
