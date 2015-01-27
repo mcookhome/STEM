@@ -125,6 +125,23 @@ def createGroup():
       username = '-'
    return render_template("create.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups,notifs=notifs)
 
+@app.route("/about/", methods = ['GET','POST'])
+def about():
+   ids= manager.getIDs()
+   loggedin = False
+   username='-'
+   if 'username' in session:
+      loggedin=True
+      username=session['username']
+      myGroups=manager.getUserGroups(username)
+      notifs=manager.getNotifs(username)
+      if request.method=='POST':
+         if "submit" in request.form:
+            if request.form["submit"] == "Go":
+               print manager.getProfilePath()
+               if manager.getProfilePath() != "profile/":
+                  return redirect(manager.getProfilePath())
+   return render_template("about.html",loggedin=loggedin, username=username, ids=ids, myGroups=myGroups, notifs=notifs)
 
 @app.route("/group/", methods = ['GET', 'POST'])
 @app.route("/group/<name>",methods=['GET','POST'])
