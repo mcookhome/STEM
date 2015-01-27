@@ -67,6 +67,8 @@ def profile(user=None):
             try:
                manager.sendText2(phone,first,last,username,message)
                print "success with text"
+            except Exceptions:
+               pass
          else:
             print "nada"
       loggedin=True
@@ -187,6 +189,7 @@ def group(name=None):
                   else:
                      manager.removeMember(username,name)
                if request.form["submit"]== "Dual Contact":
+                  message=request.form["message"]
                   members=manager.getMembers(name)
                   for user in members:
                      if user != username:
@@ -204,6 +207,8 @@ def group(name=None):
                         try:
                            manager.sendText2(phone,first,last,username,message)
                            print "success with text"
+                        except Exceptions:
+                           pass
             elif "sendmessage" in request.form:
                mess = request.form["message"]
                manager.sendMessage(name,username,mess)
