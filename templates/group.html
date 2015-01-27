@@ -36,6 +36,33 @@
                       });
 		      });
                     </script>
+		    <form class="pure-form" method="post">
+  <table border="4" bgcolor="white">
+    <tr>
+      <th>Username</th>
+      <th>Approve</th>
+      <th>Deny</th>
+    </tr>
+    {{reqMems}}
+    {% for n in reqMems %}
+    <tr>
+      <td>&nbsp{{n}}&nbsp</td>
+      <td><center>
+	  <input class="button-xsmall pure-button green" name="{{n}}" type="submit"  value="Approve">
+	  
+	</center>
+      <td><center>
+	  <input class="button-xsmall pure-button red" name="{{n}}" type="submit"  value="Deny">
+	  
+	</center>
+      </td>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+</form>
+
 		    {% endif %}
 		    <!--script for auto refreshing page-->
 		    <script>
@@ -197,9 +224,17 @@
 
 
 
-                            {% else %}
-                            <b> You are not in this group </b>
 
+                            {% else %}
+  <b> You are not in this group </b><br>
+  {% if requested %}
+<b> You already requested to join</b>
+{% else %}
+  <form class="pure-form" method="post">
+<input class="button-large pure-button" name="submit" type="submit"  value="Request To Join">
+</form>
+
+{% endif %}
               		    {% endif %}
                 {% endif %}
 {% endif %}

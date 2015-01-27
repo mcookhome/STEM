@@ -163,6 +163,8 @@ def group(name=None):
                print manager.getProfilePath()
                if manager.getProfilePath() != "profile/":
                   return redirect(manager.getProfilePath())
+            if request.form["submit"] == "Request To Join":
+               manager.joinReq(name, username)
       if name == None:
          print "hello"
          groupNames=[]
@@ -172,6 +174,8 @@ def group(name=None):
       elif name not in manager.getTables():
          return redirect("/group/")
       else:
+         requested=manager.hasRequested(name, username)
+         reqMems=manager.requeMems(name,username)
          admin = manager.getAdmin(name)
          tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
          if request.method=='POST':
@@ -221,6 +225,13 @@ def group(name=None):
             else:
                for x in request.form:
                   print x
+                  if request.form[x]=="Approve":
+                     print "approved"
+                     manager.addMember(x,name)
+                     manager.ridRequest(name,x)
+                  if request.form[x]=="Deny":
+                     
+                     manager.denyRequest(name,x)
                   for task in tasks:
                      if task[2]==x:
                         print "removing task"
@@ -237,9 +248,10 @@ def group(name=None):
          print members
          possible=manager.getPossible(name)
          print ids
+         reqMems=manager.requeMems(name,username)
          print possible
          chat = manager.getChat(name)
-         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups,notifs=notifs)
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups,notifs=notifs,requested=requested,reqMems=reqMems)
       return render_template("group.html",loggedin=False)
    
 @app.route("/chat/",methods=['GET','POST'])
