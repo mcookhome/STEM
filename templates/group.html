@@ -79,7 +79,13 @@
 		    <br><br>
 
 		    <a class="pure-button" href="/chat/{{name}}"> Full Chat History </a>
-		    
+		    <br><br>
+		    <b> Mass Communicate </b><br>
+		    	<form class="pure-form" method="post">
+		Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
+		<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Dual Contact">
+	</form>
+
 		    <br><br>
 		    <form class="pure-form" method="post">
 		      <table border="4" bgcolor="white">
@@ -96,8 +102,14 @@
 			  <td>&nbsp{{n[3]}}&nbsp</td>
 			  <td>&nbsp{{n[4]}}&nbsp</td>
 			  <td>&nbsp{{n[1]}}&nbsp</td>
-			  <td><center><input class="button-xsmall pure-button red" name="{{n[2]}}" type="submit"  value="Remove">
-			  </center></td>
+			  <td><center>
+			    {% if username==admin %}
+			    <input class="button-xsmall pure-button red" name="{{n[2]}}" type="submit"  value="Remove">
+			    {% else %}
+			    <b><font color="red">PROHIBITED</font></b>
+			    {% endif %}
+			    </center>
+			  </td>
 			</tr>
 			{% endfor %}
 		      </table>
