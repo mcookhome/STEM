@@ -40,8 +40,8 @@ def sendEmail(email,first,last,username,message):
 
 
 def sendText2(number,first,last,username,message):#uses eztexting bc cheap
-    u = "dllbx"
-    p = "dllbx"
+    u = "xdllb"
+    p = "xdllb"
     m = "dllb: Text from "+first + " " + last + " (" + username + ") " + message
     params = {'User': u,
               'Password': p,
