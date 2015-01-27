@@ -27,7 +27,7 @@ We want to create an efficient, simple, adaptable group management web applicati
 * Webcam/microphone chatting
 * group procrastination/breaks 
 
-####Goals:<br><br>
+####Goals:<br>
 1. Get a better name. <br>
 2. Create an attractive base file.<br>
 3. Work on logging<br>
