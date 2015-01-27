@@ -146,8 +146,16 @@ def addTask(group,username,name,description,duedate):
     cursor.execute(initial)
     conn.commit()
     conn.close()
+    for n in getMembers(group):
+        if n!=username:
+            text=username+" created a new task for "+group+"!"
+            sendNotif(username,n,"/group/"+group,text)
 
 def disbandGroup(groupname):
+    for n in getMembers(groupname):
+        if n!=getAdmin(groupname):
+            text=getAdmin(groupname)+" disbanded "+groupname+"!"
+            sendNotif(getAdmin(groupname),n,"/group/",text)
     removetable = "DROP TABLE '"+groupname+"'"
     conn=sqlite3.connect("databases/group.db")
     cursor=conn.cursor()
@@ -164,6 +172,7 @@ def disbandGroup(groupname):
     cursor.execute(removetable)
     conn.commit()
     conn.close()
+    
     
 
 def getItem(table,ovalue,oindex,rindex):
@@ -248,6 +257,7 @@ def addMember(username,name):
     # We can also close the connection if we are done with it.
     # Just be sure any changes have been committed or they will be lost.
     conn.close()
+    sendNotif(getAdmin(name),username,"/group/"+name,getAdmin(name)+" added you to " +name)
 
 def getAdmin(name):
     conn = sqlite3.connect("databases/group.db")
@@ -270,6 +280,10 @@ def removeMember(username,name):
     cursor.execute(remMember)
     conn.commit()
     conn.close()
+    msg="You are no longer a member of " +name
+    sendNotif(getAdmin(name),username,"/group/"+name,msg)
+    msgA=username+ " is no longer a member of " +name
+    sendNotif(username,getAdmin(name),"/profile/"+username,msgA)
 
 def sendMessage(groupname,username, message):
     conn = sqlite3.connect("databases/chat.db")
@@ -299,7 +313,7 @@ def getTasks(groupname):
     conn.close()
     return tasks
 
-def removeTask(groupname,taskname):
+def removeTask(groupname,taskname,username):
     conn = sqlite3.connect("databases/tasks.db")
     cursor = conn.cursor()
     remTask = "DELETE FROM '"+ groupname + "' WHERE name='"+taskname+"'"
@@ -307,3 +321,36 @@ def removeTask(groupname,taskname):
     cursor.execute(remTask)
     conn.commit()
     conn.close()
+    for n in getMembers(groupname):
+        if n!=username:
+            text=username+" removed task "+taskname+" from "+groupname+"!"
+            sendNotif(username,n,"/group/"+groupname,text)
+
+def userNotifTable(username):
+    conn = sqlite3.connect('databases/notif.db')
+    cursor = conn.cursor()
+    command= "CREATE TABLE IF NOT EXISTS'" + username +"' (id integer primary key, sender text, piclink text, link text, msg text)"
+    # Create table
+    print command
+    cursor.execute(command)
+    # Insert a row of data
+    conn.close()
+
+def sendNotif(sender, receiver, link, text):
+    conn = sqlite3.connect('databases/notif.db')
+    cursor = conn.cursor()
+    
+    notification= "INSERT INTO '"+receiver+ "'(sender,piclink,link,msg) VALUES ('"+sender+"', '"+getDefaultPath(sender)+ "', '"+link+"', '"+text+"')"
+    print notification
+    cursor.execute(notification)
+    # Save (commit) the changes
+    conn.commit()
+
+def getNotifs(username):
+    conn = sqlite3.connect("databases/notif.db")
+    cursor = conn.cursor()
+    command = "SELECT * FROM '"+username+"'"
+    cursor.execute(command)
+    notifs=cursor.fetchall()
+    conn.close()
+    return notifs

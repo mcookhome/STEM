@@ -70,6 +70,15 @@ a:link {
 a:visited {
     color: #ff0100;
 }
+#test{
+  width: 40px;
+  height:auto;
+  float:left;
+  padding:5px;
+  padding-top:10px;
+}
+
+
 
       /*--- DROPDOWN ---*/
       #nav ul{
@@ -102,7 +111,11 @@ a:visited {
       #nav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
       background:#333;
       }
+      #notif{
+      width: 20px;
+      height:auto;
       
+      }
 
 
 
@@ -138,7 +151,7 @@ a:visited {
   padding: 1em;
   background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
   color: white;
-  font-size: 1.2em;
+  font-size: 1em;
   text-decoration: none;
   transition: color 0.2s, background 0.5s;
 }
@@ -242,9 +255,10 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 </script>
 {% if loggedin==True %}
 <ul class="navigation">
-        <li class="nav-item"><a href="/profile/{{username}}">{{username}}</a></li>
-	<li class="nav-item"><a href="/group">Groups</a></li>
-	<li class="nav-item"><a href="/create">Create Group</a></li>
+{% for n in notifs|reverse %}
+<li class="nav-item"><a href="{{n[3]}}"><img id="test" src="//graph.facebook.com/{{n[2]}}/picture?">{{n[4]}}</a></li>
+{% endfor %}
+<li class="nav-item"><a href="/"> End of notifications</a> </li>
 </ul>
 
 <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -271,7 +285,8 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 	    {% endfor %}
 	  </ul>
 	 </li>
-		
+			      <li><a href="/create">Create Group</a></li>
+	      <li><a href="/profile/{{username}}">{{username}}</a></li>
 	  <li><a href="/logout">Logout</a></li>
 	    </form>
 

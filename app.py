@@ -9,12 +9,13 @@ app = Flask(__name__)
 
 @app.route("/",methods=['GET', 'POST'])
 def home():
-
+   
    ids= manager.getIDs()
    if 'username' in session:
       loggedin=True
       username=session['username']
       myGroups=manager.getUserGroups(username)
+      notifs=manager.getNotifs(username)
       if request.method=='POST':
          if request.form["submit"] == "Go":
             if manager.getProfilePath() != "profile/":
@@ -27,7 +28,7 @@ def home():
             return redirect("group/"+groupName)
 
       print ids
-      return render_template("base.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups)
+      return render_template("base.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups,notifs=notifs)
    else:
       loggedin=False
       username = '-'
@@ -40,6 +41,7 @@ def profile(user=None):
       username=session['username']
       userGroups = manager.getUserGroups(user);
       myGroups=manager.getUserGroups(username)
+      notifs=manager.getNotifs(username)
       print userGroups;
 
       if request.method=='POST':
@@ -86,12 +88,12 @@ def profile(user=None):
       conn.close()
         
       if userexists == False:
-         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids, userGroups=userGroups,myGroups=myGroups);
+         return render_template("profile.html", userexists=userexists, loggedin=loggedin, username=username,user=user, ids=ids, userGroups=userGroups,myGroups=myGroups,notifs=notifs);
       fid=manager.getDefaultPath(user)
       isityou = False
       if user==username:
          isityou=True
-      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids, userGroups=userGroups,myGroups=myGroups)
+      return render_template("profile.html", userexists=userexists, loggedin=loggedin, isityou=isityou, username=username, first=first, last=last, email=email, phone=phone,facebook=facebook, fid=fid, ids=ids, userGroups=userGroups,myGroups=myGroups,notifs=notifs)
    else:
 	  loggedin=False
 	  username = '-'
@@ -105,6 +107,7 @@ def createGroup():
       loggedin=True
       username=session['username']
       myGroups=manager.getUserGroups(username)
+      notifs=manager.getNotifs(username)
       if request.method=='POST':
          if request.form["submit"] == "Go":
             if manager.getProfilePath() != "profile/":
@@ -120,7 +123,7 @@ def createGroup():
    else:
       loggedin=False
       username = '-'
-   return render_template("create.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups)
+   return render_template("create.html", loggedin=loggedin, username=username,ids=ids,myGroups=myGroups,notifs=notifs)
 
 
 @app.route("/group/", methods = ['GET', 'POST'])
@@ -131,6 +134,7 @@ def group(name=None):
       loggedin=True
       username=session['username']
       myGroups=manager.getUserGroups(username)
+      notifs=manager.getNotifs(username)
       if request.method=='POST':
          if "submit" in request.form:
             if request.form["submit"] == "Go":
@@ -142,7 +146,9 @@ def group(name=None):
          groupNames=[]
          for n in manager.getTables():
             groupNames.append(n)
-         return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name,myGroups=myGroups) 
+         return render_template("group.html",loggedin=loggedin, username=username, ids=ids, groupNames=groupNames, name=name,myGroups=myGroups,notifs=notifs)
+      elif name not in manager.getTables():
+         return redirect("/group/")
       else:
          admin = manager.getAdmin(name)
          tasks=sorted(manager.getTasks(name), key=lambda t: t[4])
@@ -175,7 +181,7 @@ def group(name=None):
                   for task in tasks:
                      if task[2]==x:
                         print "removing task"
-                        manager.removeTask(name,x)
+                        manager.removeTask(name,x,username)
                         return redirect("/group/"+name)
                print "BLAH"
                for rmem in members:
@@ -190,7 +196,7 @@ def group(name=None):
          print ids
          print possible
          chat = manager.getChat(name)
-         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups)
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups,notifs=notifs)
       return render_template("group.html",loggedin=False)
    
 @app.route("/chat/",methods=['GET','POST'])
@@ -201,6 +207,7 @@ def chat(name=None):
       loggedin=True
       username=session['username']
       myGroups=manager.getUserGroups(username)
+      notifs=manager.getNotifs(username)
       if request.method=='POST':
          if "submit" in request.form:
             if request.form["submit"] == "Go":
@@ -208,7 +215,7 @@ def chat(name=None):
                if manager.getProfilePath() != "profile/":
                   return redirect(manager.getProfilePath())
       chat = manager.getChat(name)
-      return render_template("chat.html",loggedin=loggedin,ids=ids,chatlog=chat,name=name,username=username)
+      return render_template("chat.html",loggedin=loggedin,ids=ids,chatlog=chat,name=name,username=username, myGroups=myGroups, notifs=notifs)
    return render_template("chat.html",loggedin=False)
       
 @app.route("/login",methods=['GET','POST'])
@@ -221,7 +228,8 @@ def login():
                return redirect(manager.getProfilePath())
       luser = session['username']
       myGroups=manager.getUserGroups(luser)
-      return render_template("login.html", loggedin=True, username=luser,ids=ids,myGroups=myGroups)
+      notifs=manager.getNotifs(luser)
+      return render_template("login.html", loggedin=True, username=luser,ids=ids,myGroups=myGroups,notifs=notifs)
 
    if request.method=='POST':
       
@@ -347,6 +355,7 @@ def register():
             c.execute(insinfo)
             conn.commit()
             print 'Username and Password have been recorded as variables'
+            manager.userNotifTable(username)
          else:
             print "Failure to register"
 
@@ -356,8 +365,7 @@ def register():
             return render_template("register.html", page=1, username=username,ids=ids)
       return render_template("register.html", page=2, reason=reason,ids=ids)
    else:
-      myGroups=manager.getUserGroups(username)
-      return render_template("register.html", page=3, loggedin=loggedin, username=username, ids=ids,myGroups=myGroups) 
+      return render_template("register.html", page=3, loggedin=loggedin, username=username, ids=ids) 
 
 @app.route("/edit",methods=['GET','POST'])
 def edit():
@@ -403,5 +411,5 @@ def edit():
 if __name__ == "__main__":
     app.debug = True
     app.secret_key = "STEM"
-    app.run(host='0.0.0.0')
+    app.run()
     
