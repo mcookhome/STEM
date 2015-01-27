@@ -64,8 +64,11 @@ def profile(user=None):
             print phone
             manager.sendEmail(email,first,last,username,message)
             print"success with email"
-            manager.sendText2(phone,first,last,username,message)
-            print "success with text"
+            try:
+               manager.sendText2(phone,first,last,username,message)
+               print "success with text"
+            except Exceptions:
+               pass
          else:
             print "nada"
       loggedin=True
@@ -130,6 +133,8 @@ def about():
    ids= manager.getIDs()
    loggedin = False
    username='-'
+   myGroups='-'
+   notifs='-'
    if 'username' in session:
       loggedin=True
       username=session['username']
@@ -183,6 +188,27 @@ def group(name=None):
                      return redirect("/group")
                   else:
                      manager.removeMember(username,name)
+               if request.form["submit"]== "Dual Contact":
+                  message=request.form["message"]
+                  members=manager.getMembers(name)
+                  for user in members:
+                     if user != username:
+                        first =manager.getFirst(username)        
+                        last=manager.getLast(username)        
+                        email=manager.getEmail(user)        
+                        phone=manager.getPhone(user)
+                        sfirst=manager.getFirst(user)
+                        slast=manager.getLast(user)
+                        email = sfirst + " " + slast +"<"+email+">"
+                        print email
+                        print phone
+                        manager.sendEmail(email,first,last,username,message)
+                        print"success with email"
+                        try:
+                           manager.sendText2(phone,first,last,username,message)
+                           print "success with text"
+                        except Exceptions:
+                           pass
             elif "sendmessage" in request.form:
                mess = request.form["message"]
                manager.sendMessage(name,username,mess)
