@@ -42,10 +42,9 @@ We want to create an efficient, simple, adaptable group management web applicati
 * Minimal Facebook API usage
 * Group Making and Organizing
 * Chat/Instant Messaging
+* Notifications/Request
 
 ###Features in Progress:
-* Notifications/Request
+
 * Styling
 
-####Features that Will be Done if Time Permits:
-* Group Working APIs (GitHub, GoogleDoc) or our own versions of them.
