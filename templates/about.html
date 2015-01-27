@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block text %}
+
+<center><h2> About Us </h2></center>
+
+Welcome to dllb! The home for Developers, Leaders, Learners, and Buffoons!<br>
+
+<hr>
+
+<center><h3> The Problem </h3></center>
+Social Media websites were never designed for group management. Although it is a productive environment to communicate with one another, it fails to keep the group together. <br>
+It has been a recurring issue among several groups to effectively communicte with one another. <br>
+People generally look towards social media but it can be hard for those who are not offline. <br>
+
+<hr>
+
+<center><h3> Our Solution </h3></center>
+It has always been annoying to text, email, and contact through social media. <br>
+Through dllb, users can coordinate and communicate with group members through the chat system provided. <br>
+Group Leaders are also offered the ability to send mass texts and emails to all group members to effecitvely communicate with them. <br>
+Users may also privately text and email individuals.<br>
+Groups are generally made by one group leader or administrator, whose task is to keep everyone notified. <br>
+Group pages also offer a to-do list for the group to recognize what needs to be done for their project. <br>
+Anyone in the group can add tasks, which will be regulated by the admin. <br>
+
+<hr>
+
+<center><h3>Meet the Crew </h3></center>
+<h4><a href="/profile/a"> Sadman Fahmid </a></h4>
+<h4><a href="/profile/TLiang518"> Terrance Liang </a></h4>
+<h4><a href="/profile/e"> Eric Liao </a></h4>
+<h4><a href="/profile/mcookhome"> Matthew Cook </a></h4>
+
+
+
+<hr>
+
+{% if loggedin==False %}
+<a class="pure-button" href="/register"> Get Started </a>
+{% endif %}
+
+{% endblock %}
