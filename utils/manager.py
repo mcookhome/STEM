@@ -138,6 +138,8 @@ def makeGroup(groupname,maker):
     cursor.execute(command)
     conn.commit()
     conn.close()
+    requestTable(groupname)
+    
 
 def addTask(group,username,name,description,duedate):
     conn=sqlite3.connect("databases/tasks.db")
@@ -354,3 +356,73 @@ def getNotifs(username):
     notifs=cursor.fetchall()
     conn.close()
     return notifs
+
+def requestTable(group):
+    conn = sqlite3.connect('databases/request.db')
+    cursor = conn.cursor()
+    command= "CREATE TABLE IF NOT EXISTS'" + group +"' (id integer primary key,username text)"
+    # Create table
+    print command
+    cursor.execute(command)
+    # Insert a row of data
+    conn.close()
+
+def joinReq(group, username):
+    conn = sqlite3.connect('databases/request.db')
+    cursor = conn.cursor()
+    reques= "INSERT INTO '"+group+ "'(username) VALUES ('"+username+"')"
+    print reques
+    cursor.execute(reques)
+    # Save (commit) the changes
+    conn.commit()
+    conn.close()
+    sendNotif(username,getAdmin(group),"/group/"+group,username+" requested to join "+group)
+
+def hasRequested(group,username):
+    conn = sqlite3.connect('databases/request.db')
+    cursor=conn.cursor()
+    command= "SELECT * FROM '"+group+"'"
+    cursor.execute(command)
+    tabledata = cursor.fetchall()
+    reqMems=[]
+    for d in tabledata:
+        reqMems.append(d[1]);
+        conn.close()
+    reqMems[:]=[unicodedata.normalize('NFKD',o).encode('ascii','ignore') for o in reqMems]
+    print reqMems
+    conn.close()
+    if username in reqMems:
+        print "true"
+        return True
+    else:
+        print "false"
+        return False
+
+def requeMems(group,username):
+    conn = sqlite3.connect('databases/request.db')
+    cursor=conn.cursor()
+    command= "SELECT * FROM '"+group+"'"
+    cursor.execute(command)
+    tabledata = cursor.fetchall()
+    reqMems=[]
+    for d in tabledata:
+        reqMems.append(d[1]);
+        conn.close()
+    reqMems[:]=[unicodedata.normalize('NFKD',o).encode('ascii','ignore') for o in reqMems]
+    print reqMems
+    conn.close()
+    return reqMems
+
+def ridRequest(group,username):
+    conn = sqlite3.connect('databases/request.db')
+    cursor=conn.cursor()
+    command= "DELETE FROM '"+group+"' WHERE USERNAME='"+username+"'"
+    cursor.execute(command)
+    conn.commit()
+    conn.close()
+
+def denyRequest(group,username):
+    msg="You have been rejected entry to "+group
+    sendNotif(getAdmin(group),username,"/group/"+group,msg)
+    ridRequest(group,username)
+    
