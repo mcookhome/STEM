@@ -105,7 +105,6 @@
 		    </form>
 		    <br>
 
-<div id="task">
   <form name="newtask" class="pure-form" method="post">
     Task Name: <input required name="taskname" type="text"><br>
     Description: <textarea rows="5" cols="50" wrap="physical" name="description" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br>
@@ -171,15 +170,8 @@
       <option value="2025">2025</option>
     </select>
     <br>
+    <input class="button-xsmall pure-button" name="addtask" type="submit"  value="Add Task">
   </form>
-</div>
-	<script type="text/javascript">
-		function add(){
-			document.getElementById('task').style.display = "block";
-		}
-	</script>
-
-    <input class="pure-button" name="addtask" type="submit"  value="New Task" onclick="add()" >
 
   <script>
   	window.onload = init;
