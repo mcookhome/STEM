@@ -8,7 +8,7 @@
 <a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
 {% endfor %}
 {% else %}
-{{name}}
+<font id="font" size="25"><center> {{name}} </center></font>
 <br>
 {% for fmember in fmembers %}
 <img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
@@ -17,7 +17,7 @@
 {% endif %}
 
 {% if username == admin %} 
-{% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
+{% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button red" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
 {% endif %}
 {% endif %}
 <br>
@@ -49,13 +49,13 @@
 		{% endif %}
 
 		<table class="pure-table pure-table-bordered" border="4" bgcolor="white" id="requests" style="display: none">
-		<thead>
-			<tr>
-				<th>Username</th>
-				<th>Approve</th>
-				<th>Deny</th>
-			</tr>
-		</thead>
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Approve</th>
+					<th>Deny</th>
+				</tr>
+			</thead>
 			{% for n in reqMems %}
 			<tr>
 				<td>&nbsp{{n}}&nbsp</td>
@@ -134,6 +134,13 @@
 	
 </script>
 <style type="text/css">
+	#font{
+		font-family: "License Plate";
+		font-size: 1000%;
+		width: 100%;
+		overflow: auto;
+		white-space:nowrap;
+	}
 	#dim{
 		height:100%;
 		width: 100%;
@@ -176,9 +183,12 @@
 	}
 
 	#tasklist{	
+		text-align: center;
+		height: 400px;
+		overflow: scroll;
 		opacity: .95;
-		top:100px;
-		left: 50%;
+		top:250px;
+		left: 40%;
 		position: absolute;
 		padding: 15px 25px;
 		border: 2px dashed red;
@@ -187,8 +197,15 @@
 	}
 
 	#buttontask{
+		text-align: center;
 		position: relative;
 		left:40%;
+	}
+	.pure-button{
+		background: #61CDF5; 
+	}
+	.red{
+		background: red;
 	}
 
 </style>
@@ -206,9 +223,9 @@
 					<th>Delete</th>
 				</tr>
 			</thead>
-			{% if not taskList %}
 			<tbody>
-				<tr>
+				{% if not taskList %}
+					<tr>
 					<td>There are no tasks available.<td>
 					</tr>
 					{% endif %}

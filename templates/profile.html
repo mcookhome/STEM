@@ -1,35 +1,134 @@
-{% extends "base.html" %}
+'{% extends "base.html" %}
 
 {% block text %}
 
 {% if loggedin == True %}
 
 {% if userexists == True %}
-<img src="//graph.facebook.com/{{fid}}/picture?type=large"><br>
-<b><u>First Name:</u></b> &nbsp {{first}} <br>
-<b><u>Last Name:</u></b> &nbsp{{last}} <br>
-<b><u>Email Address:</u></b> &nbsp{{email}} <br>
-<b><u>Phone Number:</u></b> &nbsp{{phone}} <br>
-<b><u>Facebook Username:</u></b> 
-{% if facebook!="" %} &nbsp{{facebook}} {% endif %}
-{% if facebook=="" %} &nbsp No Username Saved {% endif %} <br>      
-<br>
-{% if isityou == True %}
-<font size = 2>
-	<a class="pure-button" href="/edit" type="submit"> Edit Profile </a>
-	<br><br> </font>
-	{% endif %}
-	<form class="pure-form" method="post">
-		Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
-		<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Dual Contact">
-	</form>
+<style type="text/css">
+	#wrapper{
+		margin-left: auto;
+		margin-right: auto;
+		overflow: auto;
+	}
+	#propic{
+		display: inline-block;
+		position: absolute;
+		right: 75px;
+		top: 2%;
+		margin: auto;
+		width:350px;
+		height: 350px;
+		border-radius: 175px;
+		-webkit-border-radius: 175px;
+		-moz-border-radius: 175px;
+		background-image: url("//graph.facebook.com/{{fid}}/picture?width=350&height=350");
+		background-position:50% 50%;
+		background-repeat:no-repeat;   
+		padding: 10px 10px;
+		border: 2px solid black;  
+	}
+	#info{
+		background: white;
+		left: 280px;
+		margin: auto;
+		height: 635px;
+		width: 500px;
+		display: inline-block;
+		top: 76px;
+		position: absolute;
+		border-radius: 10px;
+		border: 2px solid black; 
+		z-index: 999;
+	}
+	#text{
+		text-align: center;
+		position: absolute;
+		top: 75%;
+		left:18%;
+	}
+	#name{
+		position: absolute;
+		top: 60%;
+		left:13%;
+		text-align: center;
+		text-shadow: 2px 2px #fff 
+	}
+	hr {
+		border: 1px solid black;
+		top:70%;
+		position: relative;
+		width:100%;
+		height: 10px;
+		background: #000;
+		z-index: 1;
+	}
+	#message{
+		text-align: center;
+		position: absolute;
+		left:850px;
+		overflow: auto;
+	}
+	#group{
+		overflow-y: auto;
+		width:150px;
+		height: 80%;
+	}
+	#groups{
+		overflow: hidden;
+		text-align: center;
+		width: 100%;
+	}
+	.group-button{
+		width: 100%;
+		color: #FF756B;
+		border-radius: 2px;
+		background: #61CDF5; 
+	}
+	br{
+		margin-bottom: 1px;
+		line-height: 1px;
+	}
+</style>
 
-	{% if userGroups %}	
-	<h4> User groups </h4>
-	{% for x in userGroups %}
-	<a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
-	{% endfor %}
-	{% endif %}
+<div id="info">
+	<div id="propic"></div>
+	<div class="block_1"></div><hr/>
+	<font size="7" id="name"><b> {{first}} {{last}}</b></font>
+	<div id="text">
+		<b><u>Email Address:</u></b> &nbsp{{email}} <br>
+		<b><u>Phone Number:</u></b> &nbsp{{phone}} <br>
+		<b><u>Facebook Username:</u></b> 
+		{% if facebook!="" %} &nbsp{{facebook}} {% endif %}
+		{% if facebook=="" %} &nbsp No Username Saved {% endif %} <br>      
+		<br>
+		{% if isityou == True %}
+		<font size = 2>
+			<a class="pure-button group-button" href="/edit" type="submit"> Edit Profile </a>
+			<br><br> </font>
+			{% endif %}
+		</div>
+	</div>
+
+	<div id="message" >
+		<form class="pure-form" method="post">
+			<font face="License Plate" size=25>Send a message</font> 
+			<br><textarea rows="20" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">(130 character limit)</font><br><br>
+			<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Dual Contact">
+		</form>
+	</div>
+
+	<div id="group">
+		<div id="groups">
+			{% if userGroups %}	
+			<font face="License Plate" size=5>User Groups</font> 
+			{% for x in userGroups %}
+			<a class="pure-button group-button" href="/group/{{x}}">{{x}}</a> <br>
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+
 
 
 	{% endif %}
@@ -46,4 +145,7 @@
 	<h3> Login to your account to access profiles! </h3>
 	{% endif %}
 
-	{% endblock %}
+	
+	<br><br><br>	
+
+{% endblock %}	</div>																																																																																																																																																																																																																																																																																																																																																																																	
