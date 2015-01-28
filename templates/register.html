@@ -1,25 +1,6 @@
 {% extends "base.html" %}
 
 {% block text %}
-
-<style type="text/css">
-	::-webkit-input-placeholder {
-		text-align: center;
-	}
-
-	:-moz-placeholder { 
-		text-align: center;  
-	}
-
-	::-moz-placeholder { 
-		text-align: center;  
-	}
-
-	:-ms-input-placeholder {  
-		text-align: center; 
-	}
-</style>
-
 <center>
 	{% if loggedin == True %}
 	<font size=20 face="License Plate">You are already logged in!</font><br>
@@ -57,12 +38,9 @@
 						font-size: 85%;
 					}
 				</style> <br>
-				<button class="sbutton button-xlarge pure-button" type="submit">Register</button>
+				<button class="sbutton button-xlarge pure-button" type="submit">Register</button><br><br><br><br><br>
 			</div>
 		</form>
-
-	</div>
-</div>
 {% endif %}
 
 {% if page==1 %}
@@ -70,3 +48,6 @@
 {% endif %}
 </center>
 {% endblock %}
+
+	</div>
+</div>

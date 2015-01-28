@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block text %}
+	<center>
 	{% if previous==True %}
-	You have successfully logged out.
+	<font size=5 face="License Plate">You have successfully logged out.</font>
 	<meta http-equiv="refresh" content="3;url=/" />
 	{% endif %}
 	{% if previous==False %}
-	You are not logged in yet.
+	<font size=5 face="License Plate">You are not logged in yet.</font>
 	{% endif %}
-	<hr>
+	</center>
+{% endblock %}
       </div>
     </div>
-{% endblock %}

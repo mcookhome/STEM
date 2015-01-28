@@ -1,28 +1,35 @@
 {% extends "base.html" %}
 {% block text %}
+<center>
 
  
 {% if loggedin == True %}
 <br><br>
 
 {% if updated == True %}
-<h3> You have successfully updated your info </h3>
+
+<script type="text/javascript">
+	function success(){
+		alert("You have successfully updated your info");
+	}
+</script>
+
 {% endif %}
 <form class="pure-form" method="post">	    
-First Name: <input required type="text" name="first" value={{first}}></input><br>
-Last Name: <input required type="text" name="last" value={{last}}></input><br><br>
-E-mail Address: <input required type="email" name="email" value={{email}}></input><br>
-Phone Number: <input required type="number" pattern=".{10,10}" name="phone" value={{phone}}></input><br>
-Facebook URL: <input type="text" name="facebook" value={{facebook}}></input><br>
+<input required type="text" name="first" value={{first}} placeholder="First Name"></input><br>
+<input required type="text" name="last" value={{last}} placeholder="Last Name"></input><br><br>
+<input required type="email" name="email" value={{email}} placeholder="E-mail Address"></input><br>
+<input required type="number" pattern=".{10,10}" name="phone" value={{phone}} placeholder="Phone Number"></input><br>
+<input type="text" name="facebook" value={{facebook}} placeholder="Facebook URL"></input><br>
 <br>
 
-<input class="button-xsmall pure-button" name="submit" type="submit"  value="Update">
+<input class="sbutton button-xlarge pure-button" name="submit" type="submit"  onclick=success() value="Update">
 </form>
 {% endif %}
 
 
 {% if loggedin == False %}
-<h3> Login to your account to access your profile! </h3>
+<font face="License Plate" size=25>Login to your account to access your profile! </font>
 {% endif %}
-
+</center>
 {% endblock %}
