@@ -55,7 +55,9 @@
 	<thead><tr>Group Members</tr></thead>
 
 	{% for fmember in fmembers %}
+	{% if loop.index%2 == 1 %}
 	<tr>
+	{% endif %}
 		<td>
 				<font size ="1">
 					<div id="name">
@@ -71,9 +73,13 @@
 					<br>
 				</div>
 			</td>
+		{% if loop.index%2 == 0 %}
 		</tr>
+                {% endif %}
 		{% endfor %}
-
+	{% if fmembers|length % 2 == 1 %}
+	<td></td></tr>
+        {% endif %}
 	</table>
 
 	{% if username == admin %}
