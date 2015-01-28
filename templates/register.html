@@ -1,54 +1,72 @@
 {% extends "base.html" %}
 
 {% block text %}
+
+<style type="text/css">
+	::-webkit-input-placeholder {
+		text-align: center;
+	}
+
+	:-moz-placeholder { 
+		text-align: center;  
+	}
+
+	::-moz-placeholder { 
+		text-align: center;  
+	}
+
+	:-ms-input-placeholder {  
+		text-align: center; 
+	}
+</style>
+
+<center>
 	{% if loggedin == True %}
-	You are already logged in
+	<font size=20 face="License Plate">You are already logged in!</font><br>
 	<br><br>
-	<a class="pure-button" href="/logout" type = "submit"> Logout </a>
+	<a class="pure-button sbutton" href="/logout" id="white" type = "submit"> Logout </a>
 	{% endif %}
 
 	{% if page==2 or page==3 and loggedin==False %}
 	<script>
-	  $( "#fb" ).tooltip({ content: "<img src='../static/demo.png'" });
-								       </script>
-	<center>
+		$( "#fb" ).tooltip({ content: "<img src='../static/demo.png'" });
+	</script>
 	<div class="turq">
-	  <h2>Register</h2>
-	  <font color="red"><b>{{reason}}</b></font>
-	  <form action="register" method="post">
-	    Username:  <input required type="text" name="username"></input>
-	    <br>
-	    Password:&nbsp <input required type="password" name="password"></input>
-	    <br>
-	    Retype Password: <input required type="password" name="password2">
-	    <br>
-	    <br>
-	    First Name: <input required type="text" name="first"></input><br>
-	    Last Name: <input required type="text" name="last"></input><br><br>
-	    E-mail Address: <input required type="email" name="email"></input><br>
-	    Confirm Email: <input required type="email" name="email2"></input><br>
-	    Phone Number: <input required type="number" pattern=".{10,10}" name="phone"></input><br>
-	    Facebook username: <input type="text" name="facebook" id="fb"></input><br>
-	    {% if page == 2%}
-	    
-	    {% endif %}
-	    <div>
-	      <style scoped>
-		
-		.button-small {
-		font-size: 85%;
-		}
-	      </style> <br>
-	      <button class="button-small pure-button" type="submit">Register</button>
-	    </div>
-	  </form>
+		<font size=20 face="License Plate">Register</font>
+		<font color="red"><b>{{reason}}</b></font>
+		<form class="pure-form" action="register" method="post">
+			<input required type="text" name="username" placeholder="Username"></input>
+			<br>
+			<input required type="password" name="password" placeholder="Password"></input>
+			<input required type="password" name="password2" placeholder="Retype Password">
+			<br>
+			<br>
+			<input required type="text" name="first" placeholder="First Name"></input><br>
+			<input required type="text" name="last" placeholder="Last Name"></input><br><br>
+			<input required type="email" name="email" placeholder="E-mail"></input>
+			<input required type="email" name="email2" placeholder="Retype E-mail"></input><br>
+			<input required type="number" pattern=".{10,10}" name="phone" placeholder="Phone Number"></input><br>
+			<input type="text" name="facebook" id="fb" placeholder="Facebook Profile URL"></input><br>
+			{% if page == 2%}
 
-      </div>
-    </div>
+			{% endif %}
+			<div>
+				<style scoped>
+
+					.button-small {
+						font-size: 85%;
+					}
+				</style> <br>
+				<button class="sbutton button-xlarge pure-button" type="submit">Register</button>
+			</div>
+		</form>
+
+	</div>
+</div>
+{% endif %}
+
+{% if page==1 %}
+<font size=20 face="License Plate"> You have successfully registered!</font>
+{% endif %}
 </center>
-    {% endif %}
-
-    {% if page==1 %}
-    You have successfully registered!
-    {% endif %}
 {% endblock %}

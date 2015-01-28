@@ -6,7 +6,7 @@
      {% if name == None %}
 <h3> There is no chat because there is no group! Silly goose! </h3>
 {% else %}
-<h3>Chat History for {{name}} </h3>
+<font size=20 face="License Plate"><center>Chat History for {{name}} </center></font><br>
 
 {% for n in chatlog %}
 <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>
