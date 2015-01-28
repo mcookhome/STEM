@@ -15,7 +15,7 @@
 		height: 70%;
 	}
 	#groups{
-		overflow: visible;
+		overflow: auto;
 		text-align: center;
 		width: 100%;
 	}
@@ -42,7 +42,7 @@
 <br>
 
 {% for fmember in fmembers %}
-<img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a id="white" class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
+<img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a id="white" class="sbutton pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
 {% if members[loop.index-1] == admin %} 
 &nbsp<font size ="1"> <b>ADMIN</font></b> 
 {% endif %}
@@ -56,7 +56,7 @@
 {% if username == admin %}
 <br><br>
 <form class="pure-form" action="" method="post">
-	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
+	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Username" autocomplete="off"></li>
 	<li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
 	</form>
 	<script>
@@ -165,10 +165,10 @@
 	<input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
 	<br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 character limit)</font>
 </form>
-<br><br>
+<br>
 
 <a id="white" class="pure-button" href="/chat/{{name}}"> Full Chat History </a>
-<br><br>
+<br><br><br>
 <b> Mass Communicate </b><br>
 <form class="pure-form" method="post">
 	Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
@@ -242,7 +242,7 @@
 
 	#tasklist{	
 		text-align: center;
-		height: 450px;
+		height: 375px;
 		overflow: auto;
 		opacity: .95;
 		top:250px;
@@ -285,7 +285,7 @@
 			<tbody>
 				{% if hasTasks == False %}
 				<tr>
-					<td>There are no tasks available.<td>
+					<td>There are no tasks available.<td><td><td><td>
 					</tr>
 					{% endif %}
 
@@ -403,7 +403,7 @@
 <b> You already requested to join</b>
 {% else %}
 <form class="pure-form" method="post">
-	<input class="button-large pure-button" name="submit" type="submit"  value="Request To Join">
+	<input class="sbutton button-large pure-button" name="submit" type="submit"  value="Request To Join">
 </form>
 
 {% endif %}

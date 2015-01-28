@@ -1,243 +1,258 @@
 <html>
-  <head>
-    <title> dllb </title>
-    <link rel="shortcut icon" href="../static/bomb.ico">
-<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-<link href="../static/jquery/jquery-ui.css" rel="stylesheet">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="../static/jquery/external/jquery/jquery.js"></script>
-<script src="../static/jquery/jquery-ui.js"></script>
-    <script>
+<head>
+  <title> dllb </title>
+  <link rel="shortcut icon" href="../static/bomb.ico">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  <link href="../static/jquery/jquery-ui.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="../static/jquery/external/jquery/jquery.js"></script>
+  <script src="../static/jquery/jquery-ui.js"></script>
+  <script>
       // assume we are already logged in
       function facebookPop(){
-          FB.init({appId: '760770467350543', xfbml: true, cookie: true, version: 'v2.0'});
+        FB.init({appId: '760770467350543', xfbml: true, cookie: true, version: 'v2.0'});
 
-          FB.ui({
+        FB.ui({
           method: 'send',
           name: 'Facebook Dialogs',
           to: 'okay',
           link: 'dllb.com/login'
-          });
+        });
       }
-     </script>
+    </script>
 
     <style>
+      ::-webkit-input-placeholder {
+        text-align: center;
+      }
+
+      :-moz-placeholder { 
+        text-align: center;  
+      }
+
+      ::-moz-placeholder { 
+        text-align: center;  
+      }
+
+      :-ms-input-placeholder {  
+        text-align: center; 
+      }
       .home-menu {
-      padding: 0.5em;
-      text-align: center;
-      box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+        padding: 0.5em;
+        text-align: center;
+        box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
       }
       .turq  {
-      color:#191919
+        color:#191919
       }
       .home-menu.pure-menu-open {
-      background: #61CDF5;
+        background: #61CDF5;
       }
       .pure-menu.pure-menu-open.pure-menu-fixed {
-      border-bottom: none;
-      z-index: 100;
-      position:fixed;
-      z-index: 2;
+        border-bottom: none;
+        z-index: 100;
+        position:fixed;
+        z-index: 2;
       }
       
       .button-xsmall{
-      font-size: 70%;
+        font-size: 70%;
       }
 
       .home-menu .pure-menu-heading {
-      color: white;
-      font-weight: 400;
-      font-size: 120%;
-      text-transform:lowercase;
+        color: white;
+        font-weight: 400;
+        font-size: 120%;
+        text-transform:lowercase;
       }
       .chatbox {
-      overflow-y: scroll;
-      height:400px;
-      background-color:white;
-      /*display:table-cell;*/
-      /*vertical-align:bottom;*/
+        overflow-y: scroll;
+        height:400px;
+        background-color:white;
+        /*display:table-cell;*/
+        /*vertical-align:bottom;*/
       }
       .red{
-      background-color:red;
-      cursor:pointer;
+        background-color:red;
+        cursor:pointer;
       }
       .green{
-      background-color:green;
-      cursor:pointer;
+        background-color:green;
+        cursor:pointer;
       }
       /* unvisited link */
-a:link {
-    color: #61CDF5;
-}
+      a:link {
+        color: #61CDF5;
+      }
 
-/* visited link */
-a:visited {
-    color: #61CDF5;
-}
-#white{
-  color : white;
-}
-#test{
-  width: 40px;
-  height:auto;
-  float:left;
-  padding:5px;
-}
-.pic{
-      width:140px;
-      height:140px;
-      float:left;
-}
+      /* visited link */
+      a:visited {
+        color: #61CDF5;
+      }
+      #white{
+        color : white;
+      }
+      #test{
+        width: 40px;
+        height:auto;
+        float:left;
+        padding:5px;
+      }
+      .pic{
+        width:140px;
+        height:140px;
+        float:left;
+      }
 
 
 
       /*--- DROPDOWN ---*/
       #nav ul{
-      background:#FD6F65; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
-      background:rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
-      list-style:none;
-      position:absolute;
-      left:-9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
+        background:#FD6F65; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
+        background:rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
+        list-style:none;
+        position:absolute;
+        left:-9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
       }
       #nav ul li{
-      padding-top:1px; /* Introducing a padding between the li and the a give the illusion spaced items */
-      float:none;
+        padding-top:1px; /* Introducing a padding between the li and the a give the illusion spaced items */
+        float:none;
       }
       #nav ul a{
-      white-space:nowrap; /* Stop text wrapping and creating multi-line dropdown items */
+        white-space:nowrap; /* Stop text wrapping and creating multi-line dropdown items */
       }
       #nav li:hover ul{ /* Display the dropdown on hover */
-      top:36px;
-      left:0; /* Bring back on-screen when needed */
-      visibility:visible;
+        top:36px;
+        left:0; /* Bring back on-screen when needed */
+        visibility:visible;
       }
       #nav li:hover a{ /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
       background:#61CDF5;
       text-decoration:underline;
       opacity:0.9;
-      }
-      #nav li:hover ul a{ /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
-      text-decoration:none;
-      }
-      #nav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
-      background:#FD6F65;
-      }
-      #notif{
-      width: 20px;
-      height:auto;
-      
-      }
-      .crew{
-      width: 70px;
-      height:auto;
-      
-      }
+    }
+    #nav li:hover ul a{ /* The persistent hover state does however create a global style for links even before they're hovered. Here we undo these effects. */
+    text-decoration:none;
+  }
+  #nav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
+    background:#FD6F65;
+  }
+  #notif{
+    width: 20px;
+    height:auto;
+    
+  }
+  .crew{
+    width: 70px;
+    height:auto;
+    
+  }
 
-/* Navigation Menu - Background */
-.navigation {
-  /* critical sizing and position styles */
-  list-style:none;
-      background:#111;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 39px;
-  right: 0px;
-  bottom: 0px;
-  left: -50px;
-  z-index: 0;
-  /* non-critical appearance styles */
-  list-style: none;
-  background: #373737;
+  /* Navigation Menu - Background */
+  .navigation {
+    /* critical sizing and position styles */
+    list-style:none;
+    background:#111;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 39px;
+    right: 0px;
+    bottom: 0px;
+    left: -50px;
+    z-index: 0;
+    /* non-critical appearance styles */
+    list-style: none;
+    background: #373737;
 
-}
+  }
 
-/* Navigation Menu - List items */
-.nav-item {
-  /* non-critical appearance styles */
-  width: 210px;
-  border-top: 1px solid #111;
-  border-bottom: 1px solid #000;
-}
+  /* Navigation Menu - List items */
+  .nav-item {
+    /* non-critical appearance styles */
+    width: 210px;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #000;
+  }
 
-.nav-item a {
-  /* non-critical appearance styles */
-  display: block;
-  padding: 1em;
-  background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
-  color: white;
-  font-size: 1em;
-  text-decoration: none;
-  transition: color 0.2s, background 0.5s;
-}
+  .nav-item a {
+    /* non-critical appearance styles */
+    display: block;
+    padding: 1em;
+    background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%);
+    color: white;
+    font-size: 1em;
+    text-decoration: none;
+    transition: color 0.2s, background 0.5s;
+  }
 
-.nav-item a:hover {
-  color: #61CDF5;
-  background: linear-gradient(135deg, rgba(0,0,0,0) 0%,#DFE2DB 100%);
-}
+  .nav-item a:hover {
+    color: #61CDF5;
+    background: linear-gradient(135deg, rgba(0,0,0,0) 0%,#61CDF5 100%);
+  }
 
-/* Site Wrapper - Everything that isn't navigation */
-.site-wrap {
-  /* Critical position and size styles */
-  min-height: 100%;
-  min-width: 100%;
-  background-color: #DFE2DB; /* Needs a background or else the nav will show through */
-  position: relative;
-  top: 0;
-  bottom: 100%;
-  left: 0;
-  z-index: 1;
-  
-  /* non-critical apperance styles */
-  padding: 4em;
-  background-size: 200%;
-}
+  /* Site Wrapper - Everything that isn't navigation */
+  .site-wrap {
+    /* Critical position and size styles */
+    min-height: 100%;
+    min-width: 100%;
+    background-color: #DFE2DB; /* Needs a background or else the nav will show through */
+    position: relative;
+    top: 0;
+    bottom: 100%;
+    left: 0;
+    z-index: 1;
+    
+    /* non-critical apperance styles */
+    padding: 4em;
+    background-size: 200%;
+  }
 
-/* Nav Trigger */
-.nav-trigger {
-  /* critical styles - hide the checkbox input */
-  position: relative;
-  clip: rect(0, 0, 0, 0);
-}
+  /* Nav Trigger */
+  .nav-trigger {
+    /* critical styles - hide the checkbox input */
+    position: relative;
+    clip: rect(0, 0, 0, 0);
+  }
 
-label[for="nav-trigger"] {
-  /* critical positioning styles */
-  position: fixed;
-  left: 10px; top: 10px;
-  z-index: 3;
-  
-  /* non-critical apperance styles */
-  height: 40px;
-  width: 40px;
-  cursor: pointer;
-  background-image: url("../static/bomb.gif");
-  background-size: contain;
-}
+  label[for="nav-trigger"] {
+    /* critical positioning styles */
+    position: fixed;
+    left: 10px; top: 10px;
+    z-index: 3;
+    
+    /* non-critical apperance styles */
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    background-image: url("../static/bomb.gif");
+    background-size: contain;
+  }
 
-/* Make the Magic Happen */
-.nav-trigger + label, .site-wrap {
-  transition: left 0.2s;
-}
+  /* Make the Magic Happen */
+  .nav-trigger + label, .site-wrap {
+    transition: left 0.2s;
+  }
 
-.nav-trigger:checked + label {
-  left: 215px;
-}
+  .nav-trigger:checked + label {
+    left: 215px;
+  }
 
-.nav-trigger:checked ~ .site-wrap {
-  left: 200px;
-  //box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
-}
+  .nav-trigger:checked ~ .site-wrap {
+    left: 200px;
+    //box-shadow: 0 0 5px 5px rgba(0,0,0,0.5);
+  }
 
-body {
-	/* Without this, the body has excess horizontal scroll when the menu is open */
-  min-width: 1000px;
-  width: auto !important;
-  width: 1000px;
-}
+  body {
+   /* Without this, the body has excess horizontal scroll when the menu is open */
+   min-width: 1000px;
+   width: auto !important;
+   width: 1000px;
+ }
 
-/* Additional non-critical styles */
+ /* Additional non-critical styles */
 
-h1, h3, p {
+ h1, h3, p {
   max-width: 600px;
   margin: 0 auto 1em;
 }
@@ -255,140 +270,139 @@ code {
 .sbutton{
   color:white;
   background: #61cdf5;
-}
+} 
 /* Micro reset */
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;}
 html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-serif; }
-    </style>
-  </head>
-  <body bgcolor="#34495E">
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '760770467350543',
-      xfbml      : true,
-      version    : 'v2.2'
-    });
-  };
+</style>
+</head>
+<body bgcolor="#34495E">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '760770467350543',
+        xfbml      : true,
+        version    : 'v2.2'
+      });
+    };
 
-  (function(d, s, id){
+    (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
      js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-</script>
-{% if loggedin==True %}
-<ul class="navigation">
-{% for n in notifs|reverse %}
-<li class="nav-item"><a href="{{n[3]}}"><img id="test" src="//graph.facebook.com/{{n[2]}}/picture?">{{n[4]}}</a></li>
-{% endfor %}
-<li class="nav-item"><a href="/"> End of notifications</a> </li>
-</ul>
+  </script>
+  {% if loggedin==True %}
+  <ul class="navigation">
+    {% for n in notifs|reverse %}
+    <li class="nav-item"><a href="{{n[3]}}"><img id="test" src="//graph.facebook.com/{{n[2]}}/picture?">{{n[4]}}</a></li>
+    {% endfor %}
+    <li class="nav-item"><a href="/"> End of notifications</a> </li>
+  </ul>
 
-<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-<label for="nav-trigger"></label>
-{% endif %}
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger"></label>
+  {% endif %}
 
-      <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="/">dllb</a>
-	
-        <ul id="nav">
-
-	  {% if loggedin %}
-	    <form class="pure-form" method="post">
-	      <li>
-    <input class="pure-input-1-5 suggest-user" name="query" type="text" placeholder="Username" autocomplete="off"></li>
-
-	      <li><input class="button-small pure-button go" name="submit" type="submit"  value="Go"></li>
-	     	  <li>
-	  <a id="white" href="/group">Group</a>
-	  <ul>
-	    {% for group in myGroups %}
-	    <li><a id="white" href="/group/{{group}}">{{group}}</a></li>
-	    {% endfor %}
-	  </ul>
-	 </li>
-			      <li><a id="white" href="/create">Create Group</a></li>
-	      <li><a id="white" href="/profile/{{username}}">{{username}}</a></li>
-	  <li><a id="white" href="/logout">Logout</a></li>
-	    </form>
-
-	    
-	  {% else %}
-          <li><a id="white" href="/login">Login</a></li>
-          <li><a id="white" href="/register">Register</a></li>
-	  {% endif %}
-	</ul>
-      </div>
-
-<div class="site-wrap">
-   
-    <font color="black" face="arial" size="3">
-      <br>
-      {% block text%}
-      <br><br><br>
-      {% if loggedin == True %}
-      <font size=5 face="Arial"><center>Welcome to dllb, {{username}}!</center></font><br><br><br><br>
-      {% endif %}
-     
-      {% if loggedin == False %}
-      <h1 align="center"> Welcome to dllb! </h1>
-      {% endif %}
-
-      {% endblock %}
-
-    </font>
-    <center>
-
-
-<br><a href="/about/"><font color="red">About Us</font>  </a><br><img id="tag" src="../static/navilogo2.jpg" height="68.7px" width="644.1px"><br>
-  
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
-
-
-</div>
+  <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+    <a class="pure-menu-heading" href="/">dllb</a>
     
+    <ul id="nav">
+
+     {% if loggedin %}
+     <form class="pure-form" method="post">
+       <li>
+        <input class="pure-input-1-5 suggest-user" name="query" type="text" placeholder="Username" autocomplete="off"></li>
+
+        <li><input class="button-small pure-button go" name="submit" type="submit"  value="Go"></li>
+        <li>
+         <a id="white" href="/group">Group</a>
+         <ul>
+           {% for group in myGroups %}
+           <li><a id="white" href="/group/{{group}}">{{group}}</a></li>
+           {% endfor %}
+         </ul>
+       </li>
+       <li><a id="white" href="/create">Create Group</a></li>
+       <li><a id="white" href="/profile/{{username}}">{{username}}</a></li>
+       <li><a id="white" href="/logout">Logout</a></li>
+     </form>
+
+     
+     {% else %}
+     <li><a id="white" href="/login">Login</a></li>
+     <li><a id="white" href="/register">Register</a></li>
+     {% endif %}
+   </ul>
+ </div>
+
+ <div class="site-wrap">
+   
+  <font color="black" face="arial" size="3">
+    <br>
+    {% block text%}
+    <br><br><br>
+    {% if loggedin == True %}
+    <font size=5 face="Arial"><center>Welcome to dllb, {{username}}!</center></font><br><br><br><br>
+    {% endif %}
+    
+    {% if loggedin == False %}
+    <h1 align="center"> Welcome to dllb! </h1>
+    {% endif %}
+
+    {% endblock %}
+
+  </font>
+  <center>
+
+    <br><a href="/about/"><font color="red"><img id="tag" src="../static/navilogo2.jpg" height="68.7px" width="644.1px"></a><br>
+    
+    <div
+    class="fb-like"
+    data-share="true"
+    data-width="450"
+    data-show-faces="true">
+
+
+  </div>
+  
 </body>
 
 </div>
 
-  <script>
+<script>
   $(function() {
     var availableTags = {{ids | safe}};
     $( "input.suggest-user" ).autocomplete({
       source: availableTags
     });
   });
-  </script>
+</script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>    
 <div id="fb-root"></div>
-    <script>
+<script>
       // assume we are already logged in
       function facebookPop(){
-          FB.init({appId: '760770467350543', xfbml: true, cookie: true, version: 'v2.0'});
+        FB.init({appId: '760770467350543', xfbml: true, cookie: true, version: 'v2.0'});
 
-          FB.ui({
+        FB.ui({
           method: 'send',
           name: 'Facebook Dialogs',
           
           link: 'dllb.com/login'
-          });
+        });
       }
-     </script>
-  <script>
+    </script>
+    <script>
  /**
 sidebar thanks to this guy
  * Original Pen created by Austin Wulf for Bright Robot.
  * http://www.austinwulf.com
  * http://www.thatbrightrobot.com
  */
-  </script>
+</script>
 
 
- </html>
+</html>
