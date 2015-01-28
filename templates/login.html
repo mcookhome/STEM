@@ -2,9 +2,28 @@
 
 {% block text %}
 
+<style type="text/css">
+	::-webkit-input-placeholder {
+		text-align: center;
+	}
+
+	:-moz-placeholder { 
+		text-align: center;  
+	}
+
+	::-moz-placeholder { 
+		text-align: center;  
+	}
+
+	:-ms-input-placeholder {  
+		text-align: center; 
+	}
+</style>
+
 	{% if loggedin == True %}
-	You are logged in as {{username}}<br>
-	You will be automatically redirected to the home page in 3 seconds.
+	
+	<font size=5 face="License Plate">You are logged in as {{username}}<br>
+	You will be automatically redirected to the home page in 3 seconds.</font>
 	<meta http-equiv="refresh" content="3;url=/" />
 	<br><br>
 	<a class="pure-button" href="/logout" type = "submit"> Logout </a>
@@ -14,11 +33,11 @@
 	{% if loggedin == False %}
 	<center>
 	<font class="turq">
-	  <h2>Login</h2>
-	  <form action="login" method="post">
-	    Username:  <input required type="text" name="username"></input>
+	  <font size=20 face="License Plate">Login</font>
+	  <form action="login" method="post" class="pure-form">
+	    <input required type="text" name="username" placeholder="Username"></input>
 	    <br>
-	    Password:&nbsp <input required type="password" name="password"></input>
+	    <input required type="password" name="password" placeholder="Password"></input>
 	    <br>
 	    <b>{{reason}}</b>
 	    <br>
@@ -29,10 +48,10 @@
 		font-size: 85%;
 		}
 	      </style>
-	      <button class="button-small pure-button" type="submit">Login</button>
+	      <button class="sbutton button-xlarge pure-button" type="submit">Login</button>
 	    </div>
 	  </form>
-	  <br>Don't have an account? <a href="/register">Register Here!</a>
+	  <font size=5 face="License Plate"><br>Don't have an account? <a href="/register">Register Here!</a></font>
 	  
 	</font>
 	</center>

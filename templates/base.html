@@ -252,6 +252,10 @@ code {
   color:white;
   background: grey;
 }
+.sbutton{
+  color:white;
+  background: #61cdf5;
+}
 /* Micro reset */
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;}
 html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-serif; }
@@ -326,7 +330,7 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
       {% block text%}
       <br><br><br>
       {% if loggedin == True %}
-      You are logged in as {{username}}
+      <font size=5 face="Arial"><center>Welcome to dllb, {{username}}!</center></font><br><br><br><br>
       {% endif %}
      
       {% if loggedin == False %}
