@@ -88,9 +88,13 @@
 		<input class="pure-input-1-5 suggest-member member" name="member" type="text" placeholder="Username" autocomplete="off"><br>
 		<input class="sbutton button-xsmall pure-button member" name="submit" type="submit"  value="Add member">
 	</form>	
+	{% endif %}
+	{% if username in members %}
 	<form class="pure-form" method="post">
 		<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Leave">
 	</form>
+	{% endif %}
+	{% if username == admin %}
 	<script>
 		$(function(){
 			var availableTags = {{possible | safe}};
@@ -135,7 +139,7 @@
 		</style>
 
 		{% if reqMems %}
-		<a class="pure-button" onclick="dim();showrequests()"> Show New Member Requests</a>
+		<a class="pure-button go" onclick="dim();showrequests()"> Show New Member Requests</a>
 		{% endif %}
 		<div>
 			<table class="pure-table pure-table-bordered" border="4" bgcolor="white" id="requests" style="display: none">
@@ -413,7 +417,7 @@
 	<option value="2024">2024</option>
 	<option value="2025">2025</option>
 </select>
-<input id="addsubmit" class="pure-button" name="addtask" type="submit"  value="Add Task">
+<input id="addsubmit" class="pure-button go" name="addtask" type="submit"  value="Add Task">
 </form>
 
 <script>

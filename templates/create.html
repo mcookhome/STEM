@@ -5,7 +5,7 @@
 	{% if loggedin == True %}
 	<font face="License Plate" size=25>Create Group</font>
 		<form class="pure-form" method="post">
-			<input class="pure-input-1-5" name="gname" type="text" placeholder="Group Name" autocomplete="off"><br><br>
+			<input class="pure-input-1-5" name="gname" type="text" maxlength="20" placeholder="Group Name" autocomplete="off"><br><br>
 			<input class="sbutton button-xlarge pure-button" name="submit" type="submit"  value="Make group">
 		</form>
 		{% endif %}
