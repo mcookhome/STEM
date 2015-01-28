@@ -3,13 +3,16 @@ dllb
 Sadman Fahmid, Terrance Liang, Eric Liao, Matthew Cook<br>
 
 ### How to run:
-1. Type `www.dllb.club` into your address bar.
+1. Type [`www.dllb.club`](http://www.dllb.club) into your address bar.
 2. Click `ENTER`.
 3. Profit.
 
 ###Mission statement:
 Following our project name (dllb - developers; leaders; learners; buffoons)
 We want to create an efficient, simple, adaptable group management web application which allows easy contact between group members and streamlines workflow.
+
+###Video:
+Watch our video [here](https://www.youtube.com/watch?v=o0FPuxj3NMo)!
 
 ###Features:
 * Login, Register, Profile
