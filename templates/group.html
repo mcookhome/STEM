@@ -27,37 +27,63 @@
 	}br{
 		line-height: 200px;
 	}
+	#container{
+		position: absolute;
+	}
+	#name{
+		position: relative;
+		width: 100%; 
+		display:inline-block;
+	}
+
 </style>
 
 <div id="group">
-		<font face="License Plate" size=25>Existing Groups</font> 
-		{% for x in groupNames %}
-		<a id="white" class="button-xlarge pure-button group-button" href="/group/{{x}}">{{x}}</a> <br>
-		{% endfor %}
+	<font face="License Plate" size=25>Existing Groups</font> 
+	{% for x in groupNames %}
+	<a id="white" class="button-xlarge pure-button group-button" href="/group/{{x}}">{{x}}</a> <br>
+	{% endfor %}
 </div>
-	<br>
+<br>
 
 {% else %}
 <font id="font" size="25"><center> {{name}} </center></font>
 <br>
 
-{% for fmember in fmembers %}
-<img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a id="white" class="sbutton pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
-{% if members[loop.index-1] == admin %} 
-&nbsp<font size ="1"> <b>ADMIN</font></b> 
-{% endif %}
 
-{% if username == admin %} 
-{% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button red" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
-{% endif %}
-{% endif %}
-<br>
-{% endfor %}
-{% if username == admin %}
-<br><br>
-<form class="pure-form" action="" method="post">
-	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Username" autocomplete="off"></li>
-	<li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
+<table class="pure-table pure-table-bordered">
+	<thead><tr>Group Members</tr></thead>
+
+	{% for fmember in fmembers %}
+	<tr>
+		<td>
+				<font size ="1">
+					<div id="name">
+						<a href="/profile/{{members[loop.index-1]}}"><b><img src="//graph.facebook.com/{{fmember}}/picture?width=100&height=100"></b></font></a>
+						{% if members[loop.index-1] == admin %} 
+					&nbsp<font size ="1"> <b>ADMIN</font></b> 
+					{% endif %}
+
+					{% if username == admin %} 
+					{% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button red" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
+					{% endif %}
+					{% endif %}
+					<br>
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+
+	</table>
+
+	{% if username == admin %}
+	<br><br>
+	<form class="pure-form" action="" method="post">
+		<input class="pure-input-1-5 suggest-member member" name="member" type="text" placeholder="Username" autocomplete="off"><br>
+		<input class="sbutton button-xsmall pure-button member" name="submit" type="submit"  value="Add member">
+	</form>	
+	<form class="pure-form" method="post">
+		<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Leave">
 	</form>
 	<script>
 		$(function(){
@@ -80,6 +106,11 @@
 		</script>
 
 		<style type="text/css">
+			.member{
+				border: 1px solid grey;
+				width:200px;
+				height:35px;	
+			}
 			#requests{
 				text-align: center;
 				z-index: 3;	
@@ -97,7 +128,7 @@
 			}
 		</style>
 
-		{% if reqMems %}<br>
+		{% if reqMems %}
 		<a class="pure-button" onclick="dim();showrequests()"> Show New Member Requests</a>
 		{% endif %}
 		<div>
@@ -128,7 +159,6 @@
 </div>
 
 
-<br>
 </form>
 
 {% endif %}
@@ -144,10 +174,7 @@
 </script>
 {% if username in members %}
 
-<br><br>
-<form class="pure-form" method="post">
-	<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Leave">
-</form>
+
 <br><br>
 
 <!-- original chatbox here -->
@@ -167,7 +194,7 @@
 </form>
 <br>
 
-<a id="white" class="pure-button" href="/chat/{{name}}"> Full Chat History </a>
+<a id="white" class="sbutton pure-button" href="/chat/{{name}}"> Full Chat History </a>
 <br><br><br>
 <b> Mass Communicate </b><br>
 <form class="pure-form" method="post">
@@ -260,7 +287,6 @@
 		left:41%;
 	}
 	.pure-button{
-		background: #61CDF5; 
 		color:white;
 	}
 	.red{
@@ -308,7 +334,7 @@
 			{% endfor %}
 		</table>
 		<br>
-		<a id="buttontask" class="pure-button" onclick="newTask()">Add New Task</a>
+		<a id="buttontask" class="sbutton pure-button" onclick="newTask()">Add New Task</a>
 	</form>
 	<br><br>
 </div>

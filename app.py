@@ -252,7 +252,8 @@ def group(name=None):
          print possible
          chat = manager.getChat(name)
          hasTasks = len(tasks) > 0;
-         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups,notifs=notifs,requested=requested,reqMems=reqMems, hasTasks=hasTasks)
+         lenmembers = len(fmembers);
+         return render_template("group.html",loggedin=loggedin, admin=admin, username=username, ids=ids, name=name, members=members, lenmembers=lenmembers, fmembers=fmembers, possible=possible,chatlog=chat,tasklist=tasks,myGroups=myGroups,notifs=notifs,requested=requested,reqMems=reqMems, hasTasks=hasTasks)
       return render_template("group.html",loggedin=False)
    
 @app.route("/chat/",methods=['GET','POST'])
