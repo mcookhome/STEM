@@ -1,242 +1,356 @@
 {% extends "base.html" %}
 
 {% block text %}
- 
+
 {% if loggedin == True %}
-     {% if name == None %}
-             {% for x in groupNames %}
-                 <a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
-             {% endfor %}
-     {% else %}
-             {{name}}
-             <br>
-             {% for fmember in fmembers %}
-                   <img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
-                    {% if members[loop.index-1] == admin %} 
-                              &nbsp<font size ="1"> <b>ADMIN</font></b> 
-                    {% endif %}
-		   
-                    {% if username == admin %} 
-                              {% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
-                              {% endif %}
-                    {% endif %}
-                    <br>
-             {% endfor %}
-             {% if username == admin %}
-                    <br><br>
-                     <form class="pure-form" action="" method="post">
-	             <input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
-                    <li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
-                    </form>
-                    <script>
-                      $(function(){
-                      var availableTags = {{possible | safe}};
-                      $( "input.suggest-member" ).autocomplete({
-                      source: availableTags
-                      });
-		      });
-                    </script>
-		    <form class="pure-form" method="post">
-  <table border="4" bgcolor="white">
-    <tr>
-      <th>Username</th>
-      <th>Approve</th>
-      <th>Deny</th>
-    </tr>
-    {{reqMems}}
-    {% for n in reqMems %}
-    <tr>
-      <td>&nbsp{{n}}&nbsp</td>
-      <td><center>
-	  <input class="button-xsmall pure-button green" name="{{n}}" type="submit"  value="Approve">
-	  
-	</center>
-      <td><center>
-	  <input class="button-xsmall pure-button red" name="{{n}}" type="submit"  value="Deny">
-	  
-	</center>
-      </td>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-  <br>
-</form>
-
-		    {% endif %}
-		    <!--script for auto refreshing page-->
-		    <script>
-		      $(document).ready(
-		      function(){
-		      setInterval(function(){
-		      var num = Math.floor(Math.random()*100);
-		      $("#outer").load(" #chatbox");
-		      },3000);
-		      });
-		    </script>
-		    <script>
-		      /*$(document).ready(
-		      function(){
-		      $(".chatbox").animate({ scrollTop: $(document).height() }, "slow");
-		      return false;
-		      });*/
-		     </script>
-		    {% if username in members %}
-		    
-		    <br><br>
-		    <form class="pure-form" method="post">
-		      <input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
-		    </form>
-	            <br><br>
-		    		    <form class="pure-form" action="" method="post">
-                      Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
-		      <input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
-		      <br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font>
-		    </form>
-		    <!-- original chatbox here -->
-		    <font color='black'>
-		      <div id="outer" class="outer">
-			<div id="chatbox" class="chatbox">
-			  {% for n in (chatlog[-18:]) %}
-					     <b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>					     
-			  {% endfor %}
-			</div>
-		      </div>
-		    </font>
-		    <br><br>
-
-		    <a class="pure-button" href="/chat/{{name}}"> Full Chat History </a>
-		    <br><br>
-		    <b> Mass Communicate </b><br>
-		    	<form class="pure-form" method="post">
-		Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
-		<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Dual Contact">
-	</form>
-
-		    <br><br>
-		    <form class="pure-form" method="post">
-		      <table border="4" bgcolor="white">
-			<tr>
-			  <th>Task</th>
-			  <th>Description</th>
-			  <th>Due Date</th>
-			  <th>Added By</th>
-			  <th>Delete</th>
-			</tr>
-			{% for n in tasklist %}
-			<tr>
-			  <td>&nbsp{{n[2]}}&nbsp</td>
-			  <td>&nbsp{{n[3]}}&nbsp</td>
-			  <td>&nbsp{{n[4]}}&nbsp</td>
-			  <td>&nbsp{{n[1]}}&nbsp</td>
-			  <td><center>
-			    {% if username==admin %}
-			    <input class="button-xsmall pure-button red" name="{{n[2]}}" type="submit"  value="Remove">
-			    {% else %}
-			    <b><font color="red">PROHIBITED</font></b>
-			    {% endif %}
-			    </center>
-			  </td>
-			</tr>
-			{% endfor %}
-		      </table>
-		      <br>
-		    </form>
-		    <br>
-
-  <form name="newtask" class="pure-form" method="post">
-    Task Name: <input required name="taskname" type="text"><br>
-    Description: <textarea rows="5" cols="50" wrap="physical" name="description" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br>
-
-    Due Date: <select name="month">
-      <option value="01">January</option>
-      <option value="02">February</option>
-      <option value="03">March</option>
-      <option value="04">April</option>
-      <option value="05">May</option>
-      <option value="06">June</option>
-      <option value="07">July</option>
-      <option value="08">August</option>
-      <option value="09">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>      
-    </select>
-    <select name="date">
-      <option value="01">1</option>
-      <option value="02">2</option>
-      <option value="03">3</option>
-      <option value="04">4</option>
-      <option value="05">5</option>
-      <option value="06">6</option>
-      <option value="07">7</option>
-      <option value="08">8</option>
-      <option value="09">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-      <option value="13">13</option>
-      <option value="14">14</option>
-      <option value="15">15</option>
-      <option value="16">16</option>
-      <option value="17">17</option>
-      <option value="18">18</option>
-      <option value="19">19</option>
-      <option value="20">20</option>
-      <option value="21">21</option>
-      <option value="22">22</option>
-      <option value="23">23</option>
-      <option value="24">24</option>
-      <option value="25">25</option>
-      <option value="26">26</option>
-      <option value="27">27</option>
-      <option value="28">28</option>
-      <option value="29">29</option>
-      <option value="30">30</option>
-      <option value="31">31</option>
-    </select>
-    <select name="year">
-      <option value="2015">2015</option>
-      <option value="2016">2016</option>
-      <option value="2017">2017</option>
-      <option value="2018">2018</option>
-      <option value="2019">2019</option>
-      <option value="2020">2020</option>
-      <option value="2021">2021</option>
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-      <option value="2025">2025</option>
-    </select>
-    <br>
-    <input class="button-xsmall pure-button" name="addtask" type="submit"  value="Add Task">
-  </form>
-
-  <script>
-  	window.onload = init;
-    var current = new Date();
-  	function init(){
-  		document.newtask.month.options[current.getMonth()].selected = true;
-  		document.newtask.date.options[current.getDate()-1].selected = true;
-  		document.newtask.year.options[current.getFullYear()-2015].selected = true;
-  	}
-  </script>
-
-
-
-
-                            {% else %}
-  <b> You are not in this group </b><br>
-  {% if requested %}
-<b> You already requested to join</b>
+{% if name == None %}
+{% for x in groupNames %}
+<a class="pure-button" href="/group/{{x}}">{{x}}</a> <br><br>
+{% endfor %}
 {% else %}
-  <form class="pure-form" method="post">
-<input class="button-large pure-button" name="submit" type="submit"  value="Request To Join">
+<font id="font" size="25"><center> {{name}} </center></font>
+<br>
+{% for fmember in fmembers %}
+<img src="//graph.facebook.com/{{fmember}}/picture"> &nbsp<font size ="1"><a class="pure-button" href="/profile/{{members[loop.index-1]}}"><b>{{members[loop.index-1]}}</b></font></a>
+{% if members[loop.index-1] == admin %} 
+&nbsp<font size ="1"> <b>ADMIN</font></b> 
+{% endif %}
+
+{% if username == admin %} 
+{% if members[loop.index-1] != admin %}<form class="pure-form" method="post"><input class="button-xsmall pure-button red" name="{{members[loop.index-1]}}" type="submit" value="Remove"></form>
+{% endif %}
+{% endif %}
+<br>
+{% endfor %}
+{% if username == admin %}
+<br><br>
+<form class="pure-form" action="" method="post">
+	<input class="pure-input-1-5 suggest-member" name="member" type="text" placeholder="Add" autocomplete="off"></li>
+	<li><input class="button-xsmall pure-button" name="submit" type="submit"  value="Add member">
+	</form>
+	<script>
+		$(function(){
+			var availableTags = {{possible | safe}};
+			$( "input.suggest-member" ).autocomplete({
+				source: availableTags
+			});
+		});
+	</script>
+	<form class="pure-form" method="post">
+
+		<script type="text/javascript">
+			function showrequests(){
+				document.getElementById('requests').style.display = "block";
+			}
+		</script>
+
+		{% if reqMems %}<br>
+		<a class="pure-button" onclick="showrequests()"> Show New Member Requests</a>
+		{% endif %}
+
+		<table class="pure-table pure-table-bordered" border="4" bgcolor="white" id="requests" style="display: none">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Approve</th>
+					<th>Deny</th>
+				</tr>
+			</thead>
+			{% for n in reqMems %}
+			<tr>
+				<td>&nbsp{{n}}&nbsp</td>
+				<td><center>
+					<input class="button-xsmall pure-button green" name="{{n}}" type="submit"  value="Approve">
+
+				</center>
+				<td><center>
+					<input class="button-xsmall pure-button red" name="{{n}}" type="submit"  value="Deny">
+
+				</center>
+			</td>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+
+
+<br>
 </form>
 
 {% endif %}
-              		    {% endif %}
-                {% endif %}
+<!--script for auto refreshing page-->
+<script>
+	$(document).ready(
+		function(){
+			setInterval(function(){
+				var num = Math.floor(Math.random()*100);
+				$("#outer").load(" #chatbox");
+			},3000);
+		});
+</script>
+{% if username in members %}
+
+<br><br>
+<form class="pure-form" method="post">
+	<input class="button-xsmall pure-button" name="submit" type="submit"  value="Leave">
+</form>
+<br><br>
+
+<!-- original chatbox here -->
+<font color='black'>
+	<div id="outer" class="outer">
+		<div id="chatbox" class="chatbox">
+			{% for n in (chatlog[-18:]) %}
+			<b><a href="/profile/{{n[1]}}">{{n[1]}}</a></b> ({{n[3]}}): {{n[2]}} <br>					     
+			{% endfor %}
+		</div>
+	</div>
+</font>
+<form class="pure-form" action="" method="post">
+	Message: <textarea rows="1" cols="50" wrap="physical" name="message" maxlength="130"></textarea>
+	<input class="button-xsmall pure-button" class="button" name="sendmessage" id="submitmsg" type="submit"  value="Send">
+	<br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 character limit)</font>
+</form>
+<br><br>
+
+<a class="pure-button" href="/chat/{{name}}"> Full Chat History </a>
+<br><br>
+<b> Mass Communicate </b><br>
+<form class="pure-form" method="post">
+	Message: <textarea rows="5" cols="50" wrap="physical" name="message" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 chracter limit)</font><br><br>
+	<input class="button-xsmall pure-button red" name="submit" type="submit"  value="Dual Contact">
+</form>
+
+
+<script type="text/javascript">
+	function newTask(){
+		document.getElementById('dim').style.display = "block";
+		document.getElementById('taskform').style.display = "block";
+	}
+	function hideTask(){
+		document.getElementById('dim').style.display = "none";
+		document.getElementById('taskform').style.display = "none";
+	}
+	
+</script>
+<style type="text/css">
+	#font{
+		font-family: "License Plate";
+		font-size: 1000%;
+		width: 100%;
+		overflow: auto;
+		white-space:nowrap;
+	}
+	#dim{
+		height:100%;
+		width: 100%;
+		top:0px;
+		right:0px;
+		opacity: .90;
+		background-color:#313131;
+		position: fixed;
+	}
+	#taskform{
+		top:200px;
+		left:30%;
+		position: absolute;
+		padding:10px 50px;
+		border:7px solid gray;
+		border-radius:10px;
+		background-color: #fff;
+		color: red;
+		font-family: ‘Palatino Linotype’, ‘Book Antiqua’, Palatino, serif;
+	}
+	#addsubmit{
+		width:130px;
+	}
+	#taskbox{
+		width:395px;
+	}
+	#empty{
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		-ms-box-sizing: border-box;
+		-o-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+	h1{
+		overflow: hidden;
+		width: 100%;
+	}
+	#tasks{
+		border: 10px;
+	}
+
+	#tasklist{	
+		text-align: center;
+		height: 400px;
+		overflow: scroll;
+		opacity: .95;
+		top:250px;
+		left: 40%;
+		position: absolute;
+		padding: 15px 25px;
+		border: 2px dashed red;
+		border-radius: 10px;
+		background-color: #FFF8DC;
+	}
+
+	#buttontask{
+		text-align: center;
+		position: relative;
+		left:40%;
+	}
+	.pure-button{
+		background: #61CDF5; 
+	}
+	.red{
+		background: red;
+	}
+
+</style>
+
+<br><br>
+<div id="tasklist">
+	<form class="pure-form" method="post" id="tasks">
+		<table bgcolor="white" class="pure-table pure-table-bordered pure-table-horizontal">
+			<thead>
+				<tr>
+					<th>Task</th>
+					<th>Description</th>
+					<th>Due Date</th>
+					<th>Added By</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if not taskList %}
+					<tr>
+					<td>There are no tasks available.<td>
+					</tr>
+					{% endif %}
+
+					{% for n in tasklist %}
+					<tr>
+						<td>&nbsp{{n[2]}}&nbsp</td>
+						<td>&nbsp{{n[3]}}&nbsp</td>
+						<td>&nbsp{{n[4]}}&nbsp</td>
+						<td>&nbsp{{n[1]}}&nbsp</td>
+						<td><center>
+							{% if username==admin %}
+							<input class="button-xsmall pure-button red" name="{{n[2]}}" type="submit"  value="Remove">
+							{% else %}
+							<b><font color="red">PROHIBITED</font></b>
+							{% endif %}
+						</center>
+					</td>
+				</tr>
+			</tbody>
+			{% endfor %}
+		</table>
+		<br>
+		<a id="buttontask" class="pure-button" onclick="newTask()">Add New Task</a>
+	</form>
+	<br>
+</div>
+
+
+<div id="dim" style="display:none" onclick=hideTask()>
+</div>
+<form id="taskform" name="newtask" class="pure-form" method="post" style="display:none">
+	<h1 align="center" color=black>Task Submission</h1>
+	Task Name: <input required id="taskbox" name="taskname" type="text"><br>
+	Description: <textarea rows="5" cols="50" wrap="physical" name="description" maxlength="130"></textarea><br><font size ="2">&emsp;&emsp;&emsp;&emsp;&emsp;(130 character limit)</font><br>
+
+	Due Date: <select name="month">
+	<option value="01">January</option>
+	<option value="02">February</option>
+	<option value="03">March</option>
+	<option value="04">April</option>
+	<option value="05">May</option>
+	<option value="06">June</option>
+	<option value="07">July</option>
+	<option value="08">August</option>
+	<option value="09">September</option>
+	<option value="10">October</option>
+	<option value="11">November</option>
+	<option value="12">December</option>      
+</select>
+<select name="date">
+	<option value="01">1</option>
+	<option value="02">2</option>
+	<option value="03">3</option>
+	<option value="04">4</option>
+	<option value="05">5</option>
+	<option value="06">6</option>
+	<option value="07">7</option>
+	<option value="08">8</option>
+	<option value="09">9</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+	<option value="25">25</option>
+	<option value="26">26</option>
+	<option value="27">27</option>
+	<option value="28">28</option>
+	<option value="29">29</option>
+	<option value="30">30</option>
+	<option value="31">31</option>
+</select>
+<select name="year">
+	<option value="2015">2015</option>
+	<option value="2016">2016</option>
+	<option value="2017">2017</option>
+	<option value="2018">2018</option>
+	<option value="2019">2019</option>
+	<option value="2020">2020</option>
+	<option value="2021">2021</option>
+	<option value="2022">2022</option>
+	<option value="2023">2023</option>
+	<option value="2024">2024</option>
+	<option value="2025">2025</option>
+</select>
+<input id="addsubmit" class="pure-button" name="addtask" type="submit"  value="Add Task">
+</form>
+
+<script>
+	window.onload = init;
+	var current = new Date();
+	function init(){
+		document.newtask.month.options[current.getMonth()].selected = true;
+		document.newtask.date.options[current.getDate()-1].selected = true;
+		document.newtask.year.options[current.getFullYear()-2015].selected = true;
+	}
+</script>
+
+
+
+
+{% else %}
+<b> You are not in this group </b><br>
+{% if requested %}
+<b> You already requested to join</b>
+{% else %}
+<form class="pure-form" method="post">
+	<input class="button-large pure-button" name="submit" type="submit"  value="Request To Join">
+</form>
+
+{% endif %}
+{% endif %}
+{% endif %}
 {% endif %}
 
 {% endblock %}
+<!--  -->

@@ -28,10 +28,10 @@
       box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
       }
       .turq  {
-      color:turquoise;
+      color:#191919
       }
       .home-menu.pure-menu-open {
-      background: turquoise;
+      background: #61CDF5;
       }
       .pure-menu.pure-menu-open.pure-menu-fixed {
       border-bottom: none;
@@ -67,12 +67,12 @@
       }
       /* unvisited link */
 a:link {
-    color: #ff0100;
+    color: #fff;
 }
 
 /* visited link */
 a:visited {
-    color: #ff0100;
+    color: #fff;
 }
 #test{
   width: 40px;
@@ -90,7 +90,7 @@ a:visited {
 
       /*--- DROPDOWN ---*/
       #nav ul{
-      background:#fff; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
+      background:#FD6F65; /* Adding a background makes the dropdown work properly in IE7+. Make this as close to your page's background as possible (i.e. white page == white background). */
       background:rgba(255,255,255,0); /* But! Let's make the background fully transparent where we can, we don't actually want to see it if we can help it... */
       list-style:none;
       position:absolute;
@@ -109,7 +109,7 @@ a:visited {
       visibility:visible;
       }
       #nav li:hover a{ /* These create persistent hover states, meaning the top-most link stays 'hovered' even when your cursor has moved down the list. */
-      background:#40e0d0;
+      background:#61CDF5;
       text-decoration:underline;
       opacity:0.9;
       }
@@ -117,7 +117,7 @@ a:visited {
       text-decoration:none;
       }
       #nav li:hover ul li a:hover{ /* Here we define the most explicit hover states--what happens when you hover each individual link. */
-      background:#333;
+      background:#FD6F65;
       }
       #notif{
       width: 20px;
@@ -145,7 +145,8 @@ a:visited {
   z-index: 0;
   /* non-critical appearance styles */
   list-style: none;
-  background: #111;
+  background: #373737;
+
 }
 
 /* Navigation Menu - List items */
@@ -169,7 +170,7 @@ a:visited {
 
 .nav-item a:hover {
   color: #40e0d0;
-  background: linear-gradient(135deg, rgba(0,0,0,0) 0%,rgba(64,224,208,0.65) 100%);
+  background: linear-gradient(135deg, rgba(0,0,0,0) 0%,#DFE2DB 100%);
 }
 
 /* Site Wrapper - Everything that isn't navigation */
@@ -177,7 +178,7 @@ a:visited {
   /* Critical position and size styles */
   min-height: 100%;
   min-width: 100%;
-  background-color: #34495e; /* Needs a background or else the nav will show through */
+  background-color: #DFE2DB; /* Needs a background or else the nav will show through */
   position: relative;
   top: 0;
   bottom: 100%;
@@ -226,7 +227,9 @@ label[for="nav-trigger"] {
 
 body {
 	/* Without this, the body has excess horizontal scroll when the menu is open */
-  overflow-x: hidden;
+  min-width: 1000px;
+  width: auto !important;
+  width: 1000px;
 }
 
 /* Additional non-critical styles */
@@ -238,8 +241,9 @@ h1, h3, p {
 
 code {
 	padding: 2px;
-	background: #ddd;
+	background: #DFE2DB;
 }
+
 
 /* Micro reset */
 *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;margin:0;padding:0;}
@@ -288,7 +292,7 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 
 	      <li><input class="button-small pure-button" name="submit" type="submit"  value="Go"></li>
 	     	  <li>
-	  <a href="/group">Group</a>
+	  <a   href="/group">Group</a>
 	  <ul>
 	    {% for group in myGroups %}
 	    <li><a href="/group/{{group}}">{{group}}</a></li>
@@ -310,7 +314,7 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 
 <div class="site-wrap">
    
-    <font color="white" face="arial" size="3">
+    <font color="black" face="arial" size="3">
       <br>
       {% block text%}
       <br><br><br>
@@ -326,7 +330,7 @@ html, body { height: 100%; width: 100%; font-family: Helvetica, Arial, sans-seri
 
     </font>
     <center>
-<br><a href="/about/">About Us </a><br><img src="../static/navilogo2.png" height="68.7px" width="644.1px"><br>
+<br><a href="/about/"><font color="red">About Us</font>  </a><br><img src="../static/navilogo2.png" height="68.7px" width="644.1px"><br>
   
 <div
   class="fb-like"
